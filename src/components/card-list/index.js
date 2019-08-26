@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../card';
+import Card from 'components/card';
 import './card-list.style.scss';
 
 class CardList extends React.Component {
