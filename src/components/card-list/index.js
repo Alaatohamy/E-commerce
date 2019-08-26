@@ -44,11 +44,9 @@ class CardList extends React.Component {
     const {cardListData} = this.state;
 
     return (
-      <section>
-        <ul className="card-list">
-        { cardListData.map(({id, ...otherCardData}) => <Card key={id} {...otherCardData} /> )}
-        </ul>
-      </section> 
+      <ul className="card-list">
+      { cardListData.map(({id, ...otherCardData}) => <Card key={id} {...otherCardData} /> )}
+      </ul>
     )
   }
 }

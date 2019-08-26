@@ -4,7 +4,9 @@ import './home-page.style.scss';
 
 const HomePage = () => {
   return (
-    <CardList />
+    <section className="home-page">
+      <CardList />
+    </section>
   )
 }
 
