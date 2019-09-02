@@ -14,7 +14,7 @@ class Header extends React.Component {
         <h1>
           <Link to ="/">
             <span className="visually-hidden">E-commerce</span>
-            <Logo />
+            <Logo title="E-commerce logo" />
           </Link>
         </h1>
         <nav>
