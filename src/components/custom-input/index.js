@@ -1,11 +1,11 @@
 import React from 'react';
 import './custom-input.style.scss';
 
-const CustomInput = ({label, ...otherProps}) => {
+const CustomInput = ({label, handleChange, ...otherProps}) => {
   return (
     <div className="custom-input-group">
-      <label className="custom-label">{label}</label>
-      <input className="custom-input" {...otherProps} />
+      {otherProps.value.length? <label className={`custom-label`}>{label}</label> : null}
+      <input className="custom-input" onChange={handleChange} {...otherProps} />
     </div>
   )
 }
