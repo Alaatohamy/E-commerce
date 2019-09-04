@@ -12,6 +12,7 @@
 
     li {
       display: inline-block;
+      cursor: pointer;
 
       & + li {
         margin-left: 25px;
