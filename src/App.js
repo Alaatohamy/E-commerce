@@ -13,9 +13,29 @@ class App extends Component {
   unSubscriptFromAuth = null;
 
   componentDidMount(){
-    this.unSubscriptFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({current_user: user});
-      createUserProfileDocument(user);
+    this.unSubscriptFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if(userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        /**
+         * Function listen to any change on snapshot object, it will update you when any use data updated
+         * we use it for returning snapshot object
+         */
+        userRef.onSnapshot(async snapShot => {
+          const userData = await snapShot.data();
+          try {
+            this.setState({
+              current_user: {
+                id: snapShot.id,
+                ...userData
+              }
+            });
+          } catch (err){
+            console.log('Something went wrong will updating user state, ', err);
+          }
+        });
+      } else {
+        this.setState({current_user: userAuth});
+      }
     });
   }
 
