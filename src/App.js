@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import { HomePage, ShopPage, HatsPage, SignInPage } from 'pages';
 import { Header } from 'components';
-import {auth, createUserProfileDocument} from 'firebase-config/firebase.utils';
+import { auth, createUserProfileDocument } from 'firebase-config/firebase.utils';
 
 class App extends Component {
   state = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import CollectionCard from '../collection-card';
-import {SHOP_DATA} from '../../shop-data';
+import { SHOP_DATA } from '../../shop-data';
 
 class CollectionPreview extends React.Component {
   state ={

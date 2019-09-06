@@ -1,5 +1,5 @@
 import React from 'react';
-import {CollectionPreview} from 'components';
+import { CollectionPreview } from 'components';
 
 const ShopPage = () => {
   return (

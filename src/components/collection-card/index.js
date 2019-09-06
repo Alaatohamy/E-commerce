@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './collection-card.style.scss';
 
 const CollectionCard = ({title, routeName, items}) => {
