@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { auth } from 'firebase-config/firebase.utils';
 import './header.style.scss';
@@ -10,7 +11,7 @@ class Header extends React.Component {
   };
 
   render(){
-    const {current_user} = this.props;
+    const {currentUser} = this.props;
 
     return (
       <header className="main-header clearfix">
@@ -25,7 +26,7 @@ class Header extends React.Component {
             <li><Link to="/shop">Shop</Link></li>
             <li><Link to="/contact">Contact</Link></li>
             {
-              current_user? (
+              currentUser? (
                 <>
                   <li onClick={() => auth.signOut()}>Sign Out</li>
                   <li><Link to="/my-cart">cart</Link></li>
@@ -37,7 +38,10 @@ class Header extends React.Component {
       </header>
     )
   }
-
 }
 
-export default Header;
+const mapState = (state) => ({
+  currentUser: state.user.currentUser
+});
+
+export default connect(mapState)(Header);
