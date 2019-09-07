@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { auth } from 'firebase-config/firebase.utils';
+import CartIcon from '../cart-icon';
 import './header.style.scss';
 
 class Header extends React.Component {
@@ -29,7 +30,9 @@ class Header extends React.Component {
               currentUser? (
                 <>
                   <li onClick={() => auth.signOut()}>Sign Out</li>
-                  <li><Link to="/my-cart">cart</Link></li>
+                  <li><Link to="/my-cart">
+                    <CartIcon />
+                  </Link></li>
                 </>
               ) : <li><Link to="/sign-in">Sign in</Link></li>
             }
