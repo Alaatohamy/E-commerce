@@ -1,4 +1,5 @@
 import { CART_TYPES } from './cart.types';
+import { addItemToCart } from './cart.utils';
 
 const INITIAL_STATE = {
   clicked: false,
@@ -22,7 +23,7 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         cartData: {
           ...state.cartData,
           count: state.cartData.count + action.payload.count,
-          items: [...state.cartData.items, action.payload.item]
+          items: addItemToCart(state.cartData.items, action.payload.item)
         }
       }
     default:
