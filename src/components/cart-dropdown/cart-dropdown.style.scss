@@ -1,0 +1,24 @@
+.cart-dropdown {
+  &-wrapper {
+    position: absolute;
+    width: 240px;
+    height: 340px;
+    padding: 20px;
+    border: 1px solid black;
+    right: 0px;
+    top: 70px;
+    background-color: #fff;
+    z-index: 5;
+    text-align: center;
+
+    .button {
+      width: 100%;
+    }
+  }
+
+  &-content {
+    height: 240px;
+    overflow-y: auto;
+    text-align: left;
+  }
+}
