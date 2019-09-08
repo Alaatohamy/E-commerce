@@ -10,18 +10,11 @@ import './header.style.scss';
 class Header extends React.Component {
   state = {
     card: 0,
-    clicked: false
   };
 
-  handleOnClickCart = () => {
-    this.setState(state => {
-      return {clicked: !state.clicked};
-    });
-  }
-
   render(){
-    const {currentUser} = this.props;
-    const { card, clicked } = this.state;
+    const { currentUser, clicked } = this.props;
+    const { card } = this.state;
 
     return (
       <header className="main-header clearfix">
@@ -39,7 +32,7 @@ class Header extends React.Component {
               currentUser? (
                 <>
                   <li onClick={() => auth.signOut()}>Sign Out</li>
-                  <li onClick={this.handleOnClickCart}>
+                  <li>
                     <CartIcon count={card} />
                   </li>
                 </>
@@ -53,8 +46,9 @@ class Header extends React.Component {
   }
 }
 
-const mapState = (state) => ({
-  currentUser: state.user.currentUser
+const mapState = ({user: {currentUser}, cart: {clicked} }) => ({
+  currentUser: currentUser,
+  clicked: clicked
 });
 
 export default connect(mapState)(Header);
