@@ -1,0 +1,19 @@
+.collection {
+  &-title {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  &-container {
+    margin-inline-start: -15px;
+    margin-inline-end: -15px;
+
+    &::before,
+    &::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
+}

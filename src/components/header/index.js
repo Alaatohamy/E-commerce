@@ -8,13 +8,8 @@ import { CartDropdown } from 'components';
 import './header.style.scss';
 
 class Header extends React.Component {
-  state = {
-    card: 0,
-  };
-
   render(){
     const { currentUser, clicked } = this.props;
-    const { card } = this.state;
 
     return (
       <header className="main-header clearfix">
@@ -33,7 +28,7 @@ class Header extends React.Component {
                 <>
                   <li onClick={() => auth.signOut()}>Sign Out</li>
                   <li>
-                    <CartIcon count={card} />
+                    <CartIcon />
                   </li>
                 </>
               ) : <li><Link to="/sign-in">Sign in</Link></li>
@@ -46,7 +41,7 @@ class Header extends React.Component {
   }
 }
 
-const mapState = ({user: {currentUser}, cart: {clicked} }) => ({
+const mapState = ({ user: {currentUser}, cart: {clicked} }) => ({
   currentUser: currentUser,
   clicked: clicked
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import CollectionCard from '../collection-card';
+import CollectionCard from '../collection-section';
 import { SHOP_DATA } from '../../shop-data';
 
 class CollectionPreview extends React.Component {
@@ -13,7 +13,7 @@ class CollectionPreview extends React.Component {
     return (
       <section>
         {
-          collections.map(({id, ...OtherData}) => <CollectionCard key={id} {...OtherData} />)
+          collections.map(cardData => <CollectionCard key={cardData.id} cardData={cardData} />)
         }
       </section>
     )
