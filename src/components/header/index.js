@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { auth } from 'firebase-config/firebase.utils';
 import { CartDropdown, CartIcon } from 'components';
@@ -43,11 +44,9 @@ class Header extends React.Component {
   }
 }
 
-const mapState = (state) => {
-  return {
-    currentUser: selectCurrentUser(state),
-    clicked: selectCartClicked(state)
-  }
-};
+const mapState = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  clicked: selectCartClicked
+});
 
 export default connect(mapState)(Header);
