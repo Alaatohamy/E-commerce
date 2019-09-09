@@ -4,10 +4,17 @@ import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { Button, CartItem } from 'components';
 import { selectCartItems } from 'redux/cart/cart.selectors';
+import { toggleCartDropDown } from 'redux/cart/cart.actions';
 import './cart-dropdown.style.scss';
 
 const CartDropdown = props => {
-  const {cartItems, history} = props;
+  const {cartItems, history, toggleCartDropDown} = props;
+
+  const handleClick = () => {
+    history.push('/checkout');
+    toggleCartDropDown();
+  };
+
   return (
     <div className="cart-dropdown-wrapper">
       {
@@ -21,7 +28,7 @@ const CartDropdown = props => {
               text="Go to checkout"
               color="black"
               type="button"
-              onClick={() => history.push('/checkout')}
+              onClick={handleClick}
             />
           </>
         )
@@ -37,4 +44,8 @@ const mapState = createStructuredSelector({
     cartItems: selectCartItems
 });
 
-export default withRouter(connect(mapState)(CartDropdown));
+const mapDispatch = dispatch => ({
+  toggleCartDropDown: () => dispatch(toggleCartDropDown())
+})
+
+export default withRouter(connect(mapState, mapDispatch)(CartDropdown));
