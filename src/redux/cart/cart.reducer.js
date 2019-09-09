@@ -13,7 +13,7 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         clicked: !state.clicked
       }
-    case CART_TYPES.ADD_TO_CART: 
+    case CART_TYPES.ADD_CART_ITEM:
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload)
