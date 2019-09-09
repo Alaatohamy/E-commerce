@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 import { auth } from 'firebase-config/firebase.utils';
-import CartIcon from '../cart-icon';
-import { CartDropdown } from 'components';
+import { CartDropdown, CartIcon } from 'components';
+import { selectCartClicked } from 'redux/cart/cart.selectors';
+import { selectCurrentUser } from 'redux/user/user.selectors';
 import './header.style.scss';
 
 class Header extends React.Component {
   render(){
+    console.log('render header');
     const { currentUser, clicked } = this.props;
 
     return (
@@ -41,9 +43,11 @@ class Header extends React.Component {
   }
 }
 
-const mapState = ({ user: {currentUser}, cart: {clicked} }) => ({
-  currentUser: currentUser,
-  clicked: clicked
-});
+const mapState = (state) => {
+  return {
+    currentUser: selectCurrentUser(state),
+    clicked: selectCartClicked(state)
+  }
+};
 
 export default connect(mapState)(Header);

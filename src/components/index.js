@@ -7,3 +7,4 @@ export { default as SignIn } from './sign-in';
 export { default as SignUp } from './sign-up';
 export { default as CartDropdown } from './cart-dropdown';
 export { default as CartItem } from './cart-item';
+export { default as CartIcon } from './cart-icon';
