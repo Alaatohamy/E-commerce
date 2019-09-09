@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import CardItem from '../collection-item';
 import './collection-section.style.scss';
 
-const CollectionCard = ({cardData, addToCart}) => {
-  console.log(cardData);
+const CollectionCard = ({cardData}) => {
   const {title, routeName, items} = cardData;
   const truncatedItems = items.slice(0, 4);
   return (
