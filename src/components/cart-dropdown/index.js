@@ -5,14 +5,12 @@ import './cart-dropdown.style.scss';
 
 class CartDropdown extends React.Component {
   render() {
-    const {items} = this.props;
-    console.log(items);
-
+    const {cartItems} = this.props;
     return (
       <div className="cart-dropdown-wrapper">
         <ul className="cart-dropdown-content">
           {
-            items.map(item => { console.log(item); return <CartItem key={item.id} item={item} />})
+            cartItems.map(item => <CartItem key={item.id} item={item} />)
           }
         </ul>
         <Button text="Go to checkout" color="black" />
@@ -21,8 +19,8 @@ class CartDropdown extends React.Component {
   }
 }
 
-const mapState = ({cart: {cartData: {items}} }) => ({
-  items
+const mapState = ({cart: {cartItems}}) => ({
+  cartItems
 });
 
 export default connect(mapState)(CartDropdown);

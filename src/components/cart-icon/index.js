@@ -17,8 +17,8 @@ const mapDispatch = dispatch => ({
   toggleCartDropDown: () => dispatch(toggleCartDropDown())
 });
 
-const mapState = ({cart: {cartData: {count}}}) => ({
-  count
+const mapState = ({cart: {cartItems}}) => ({
+  count: cartItems.reduce((accumulator, item) => accumulator + item.quantity, 0)
 });
 
 export default connect(mapState, mapDispatch)(CartIcon);

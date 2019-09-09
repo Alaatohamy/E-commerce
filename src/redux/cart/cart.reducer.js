@@ -3,10 +3,7 @@ import { addItemToCart } from './cart.utils';
 
 const INITIAL_STATE = {
   clicked: false,
-  cartData: {
-    count: 0,
-    items: []
-  }
+  cartItems: []
 }
 
 export const cartReducer = (state = INITIAL_STATE, action) => {
@@ -17,14 +14,9 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         clicked: !state.clicked
       }
     case CART_TYPES.ADD_TO_CART: 
-      console.log('reducer', action.payload);
       return {
         ...state,
-        cartData: {
-          ...state.cartData,
-          count: state.cartData.count + action.payload.count,
-          items: addItemToCart(state.cartData.items, action.payload.item)
-        }
+        cartItems: addItemToCart(state.cartItems, action.payload)
       }
     default:
       return state;

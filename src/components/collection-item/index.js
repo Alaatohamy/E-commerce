@@ -10,7 +10,7 @@ const CardItem = (props) => {
     <li className="collection-card" >
       <div className="background-image" style={{backgroundImage: `url(${imageUrl})`}}>
         <div className="background-image--hover">
-          <button onClick={() => addToCart({count: 1, item})}>Add to Cart</button>
+          <button onClick={() => addToCart(item)}>Add to Cart</button>
         </div>
       </div>
       <div className="collection-card__details clearfix">
@@ -22,7 +22,7 @@ const CardItem = (props) => {
 }
 
 const mapDispatch = dispatch => ({
-  addToCart: (data) => dispatch(addToCart(data))
+  addToCart: (item) => dispatch(addToCart(item))
 });
 
 export default connect(null, mapDispatch)(CardItem);
