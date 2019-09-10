@@ -1,54 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCardListData } from 'redux/navigation-list/navigation-list.selectors';
 import Card from 'components/card';
 import './navigation-list.style.scss';
 
-class NavigationList extends React.Component {
-  state = {
-    cardListData: [
-      {
-        title: 'hats',
-        imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-        id: 1,
-        linkUrl: 'shop/hats'
-      },
-      {
-        title: 'jackets',
-        imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-        id: 2,
-        linkUrl: 'shop/jackets'
-      },
-      {
-        title: 'sneakers',
-        imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-        id: 3,
-        linkUrl: 'shop/sneakers'
-      },
-      {
-        title: 'women',
-        imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-        size: 'large',
-        id: 4,
-        linkUrl: 'shop/women'
-      },
-      {
-        title: 'men',
-        imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-        size: 'large',
-        id: 5,
-        linkUrl: 'shop/men'
-      }
-    ]
-  }
-
-  render(){
-    const {cardListData} = this.state;
-
-    return (
-      <ul className="navigation-list">
-      { cardListData.map(({id, ...otherCardData}) => <Card key={id} {...otherCardData} /> )}
-      </ul>
-    )
-  }
+const NavigationList = ({ cardListData }) => {
+  return (
+    <ul className="navigation-list">
+    { cardListData.map(({id, ...otherCardData}) => <Card key={id} {...otherCardData} /> )}
+    </ul>
+  )
 }
 
-export default NavigationList;
+const mapState = createStructuredSelector({
+  cardListData: selectCardListData
+});
+
+export default connect(mapState)(NavigationList);
