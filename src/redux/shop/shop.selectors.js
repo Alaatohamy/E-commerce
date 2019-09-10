@@ -6,6 +6,10 @@ export const selectCollections = createSelector(
   selectShop, shop => shop.collections
 );
 
+export const selectCollectionsAsArray = createSelector(
+  selectCollections, collections => Object.keys(collections).map(key => collections[key])
+);
+
 export const selectCollection = title => createSelector(
-  selectCollections, collections => collections.find(collection => (collection.title).toLocaleLowerCase() === title.toLocaleLowerCase())
+  selectCollections, collections => collections[title]
 );
