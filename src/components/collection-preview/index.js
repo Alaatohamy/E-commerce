@@ -1,23 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCollection } from 'redux/shop/shop.selectors';
 import CollectionCard from '../collection-section';
-import SHOP_DATA from '../../shop.data';
 
-class CollectionPreview extends React.Component {
-  state ={
-    collections: SHOP_DATA
-  }
-
-  render(){
-    const {collections} = this.state;
-
-    return (
-      <section>
-        {
-          collections.map(cardData => <CollectionCard key={cardData.id} cardData={cardData} />)
-        }
-      </section>
-    )
-  }
+const CollectionPreview = ({collections}) => {
+  return (
+    <section>
+      {
+        collections.map(cardData => <CollectionCard key={cardData.id} cardData={cardData} />)
+      }
+    </section>
+  )
 }
 
-export default CollectionPreview;
+const mapState = createStructuredSelector({
+  collections: selectCollection
+});
+
+export default connect(mapState)(CollectionPreview);
