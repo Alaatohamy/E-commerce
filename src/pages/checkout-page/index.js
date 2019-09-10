@@ -1,10 +1,12 @@
 import React from 'react';
+import { CheckoutItems } from 'components';
+import './checkout-page.style.scss';
 
 const CheckoutPage = () => {
   return (
-    <>
-      <p>Checkout page</p>
-    </>
+    <section className="checkout-page">
+      <CheckoutItems />
+    </section>
   )
 }
 
