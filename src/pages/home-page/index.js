@@ -1,10 +1,10 @@
 import React from 'react';
-import { CardList } from 'components';
+import { NavigationList } from 'components';
 
 const HomePage = (props) => {
   return (
     <section className="home-page">
-      <CardList />
+      <NavigationList />
     </section>
   )
 }

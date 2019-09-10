@@ -1,4 +1,4 @@
-export { default as CardList } from './card-list';
+export { default as NavigationList } from './navigation-list';
 export { default as CollectionPreview } from './collection-preview';
 export { default as Header } from './header';
 export { default as Button } from './button';

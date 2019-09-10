@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from 'components/card';
-import './card-list.style.scss';
+import './navigation-list.style.scss';
 
-class CardList extends React.Component {
+class NavigationList extends React.Component {
   state = {
     cardListData: [
       {
@@ -44,11 +44,11 @@ class CardList extends React.Component {
     const {cardListData} = this.state;
 
     return (
-      <ul className="card-list">
+      <ul className="navigation-list">
       { cardListData.map(({id, ...otherCardData}) => <Card key={id} {...otherCardData} /> )}
       </ul>
     )
   }
 }
 
-export default CardList;
+export default NavigationList;
