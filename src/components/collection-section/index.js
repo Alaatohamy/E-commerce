@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import CardItem from '../collection-item';
 import './collection-section.style.scss';
 
-const CollectionCard = ({cardData}) => {
-  const {title, routeName, items} = cardData;
-  const truncatedItems = items.slice(0, 4);
+const CollectionSection = ({collection, preview}) => {
+  const {title, routeName, items} = collection;
+  const truncatedItems = preview ? items.slice(0, 4) : items ;
   return (
     <>
       <h1 className="collection-title"><Link to={`/${routeName}`}>{title}</Link></h1>
@@ -16,4 +16,4 @@ const CollectionCard = ({cardData}) => {
   )
 }
 
-export default CollectionCard;
+export default CollectionSection;

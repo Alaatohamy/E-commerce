@@ -1,21 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCollection } from 'redux/shop/shop.selectors';
+import { selectCollections } from 'redux/shop/shop.selectors';
 import CollectionCard from '../collection-section';
 
 const CollectionPreview = ({collections}) => {
   return (
     <section>
+      <h1>Collections</h1>
       {
-        collections.map(cardData => <CollectionCard key={cardData.id} cardData={cardData} />)
+        collections.map(collection => <CollectionCard key={collection.id} collection={collection} preview />)
       }
     </section>
   )
 }
 
 const mapState = createStructuredSelector({
-  collections: selectCollection
+  collections: selectCollections
 });
 
 export default connect(mapState)(CollectionPreview);
