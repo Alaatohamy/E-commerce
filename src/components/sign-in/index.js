@@ -1,54 +1,75 @@
-import React from 'react';
-import { Button, CustomInput } from 'components';
-import { signInWithGoogle, auth } from 'firebase-config/firebase.utils';
-import './sign-in.style.scss';
+import React from "react"
+import { Button, CustomInput } from "components"
+import { signInWithGoogle, auth } from "firebase-config/firebase.utils"
+import { ActionsContainer } from "./sign-in.style"
 
 class SignIn extends React.Component {
   state = {
-    email: '',
-    password: ''
-  };
+    email: "",
+    password: "",
+  }
 
   handleChange = e => {
-    const {name, value} = e.target;
+    const { name, value } = e.target
     this.setState({
-      [name]: value
-    });
+      [name]: value,
+    })
   }
 
   handleSubmit = async e => {
-    e.preventDefault();
-    const {email, password} = this.state;
-    
+    e.preventDefault()
+    const { email, password } = this.state
+
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password)
       this.setState({
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       })
-    } catch(err) {
-      alert('Check your email or password again, please');
+    } catch (err) {
+      alert("Check your email or password again, please")
     }
   }
 
   render() {
-    const {email, password} = this.state;
+    const { email, password } = this.state
 
     return (
       <section className="form sign-in">
         <h2 className="title">I already have an account</h2>
         <p>Sign in with your email and password</p>
         <form onSubmit={this.handleSubmit}>
-          <CustomInput type="email" name="email" required placeholder="Email" label="Email" value={email} handleChange={this.handleChange} />
-          <CustomInput type="password" name="password" required placeholder="Password" label="Password" value={password} handleChange={this.handleChange} />
-          <div className="actions">
+          <CustomInput
+            type="email"
+            name="email"
+            required
+            placeholder="Email"
+            label="Email"
+            value={email}
+            handleChange={this.handleChange}
+          />
+          <CustomInput
+            type="password"
+            name="password"
+            required
+            placeholder="Password"
+            label="Password"
+            value={password}
+            handleChange={this.handleChange}
+          />
+          <ActionsContainer>
             <Button text="Sign in" color="black" />
-            <Button text="Sign in with Google" color="blue" type="button" onClick={signInWithGoogle} />
-          </div>
+            <Button
+              text="Sign in with Google"
+              color="blue"
+              type="button"
+              onClick={signInWithGoogle}
+            />
+          </ActionsContainer>
         </form>
       </section>
     )
   }
 }
 
-export default SignIn;
+export default SignIn

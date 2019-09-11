@@ -1,20 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectCardListData } from 'redux/navigation-list/navigation-list.selectors';
-import Card from 'components/card';
-import './navigation-list.style.scss';
+import React from "react"
+import { connect } from "react-redux"
+import { createStructuredSelector } from "reselect"
+import { selectCardListData } from "redux/navigation-list/navigation-list.selectors"
+import Card from "components/card"
+import { NavigationListContainer } from "./navigation-list.style"
 
 const NavigationList = ({ cardListData }) => {
   return (
-    <ul className="navigation-list">
-    { cardListData.map(({id, ...otherCardData}) => <Card key={id} {...otherCardData} /> )}
-    </ul>
+    <NavigationListContainer>
+      {cardListData.map(({ id, ...otherCardData }) => (
+        <Card key={id} {...otherCardData} />
+      ))}
+    </NavigationListContainer>
   )
 }
 
 const mapState = createStructuredSelector({
-  cardListData: selectCardListData
-});
+  cardListData: selectCardListData,
+})
 
-export default connect(mapState)(NavigationList);
+export default connect(mapState)(NavigationList)
