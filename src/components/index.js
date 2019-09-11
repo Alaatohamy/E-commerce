@@ -11,3 +11,4 @@ export { default as CartIcon } from './cart-icon';
 export { default as CheckoutItems } from './checkout-items';
 export { default as CheckoutItem } from './checkout-item';
 export { default as CollectionSection } from './collection-section';
+export { default as Payment } from './payment';
