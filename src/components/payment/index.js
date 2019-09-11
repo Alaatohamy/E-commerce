@@ -8,7 +8,6 @@ const Payment = ({totalPrice}) => {
   const stripPrice = totalPrice * 100;
   const publishablekey = "pk_test_6Fpl9uWUd5ku58jw4feyE116006h7YbkT5";
   const onToken = token => {
-    console.log(token);
     alert('payment succeed');
   }
 

@@ -11,7 +11,6 @@ import './header.style.scss';
 
 class Header extends React.Component {
   render(){
-    console.log('render header');
     const { currentUser, clicked } = this.props;
 
     return (
@@ -25,7 +24,7 @@ class Header extends React.Component {
         <nav>
           <ul>
             <li><Link to="/shop">Shop</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            {/* <li><Link to="/contact">Contact</Link></li> */}
             {
               currentUser? (
                 <>

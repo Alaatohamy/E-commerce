@@ -27,7 +27,7 @@ class SignIn extends React.Component {
         password: ''
       })
     } catch(err) {
-      console.log('sign-in error: ', err.message);
+      alert('Check your email or password again, please');
     }
   }
 
