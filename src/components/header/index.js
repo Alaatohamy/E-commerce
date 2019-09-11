@@ -18,8 +18,8 @@ class Header extends React.Component {
       <header className="main-header clearfix">
         <h1>
           <Link to ="/">
-            <span className="visually-hidden">E-commerce</span>
-            <Logo title="E-commerce logo" />
+            <span className="visually-hidden">T-Commerce</span>
+            <Logo title="T-Commerce logo" />
           </Link>
         </h1>
         <nav>
