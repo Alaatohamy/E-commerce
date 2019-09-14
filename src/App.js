@@ -7,23 +7,16 @@ import { HomePage, ShopPage, SignPage, CheckoutPage } from "pages";
 import { Header } from "components";
 import {
   auth,
-  createUserProfileDocument,
-  creatCollectionAndDocuments
+  createUserProfileDocument
 } from "firebase-config/firebase.utils";
 import { setCurrentUser } from "redux/user/user.actions";
 import { selectCurrentUser } from "redux/user/user.selectors";
-import { selectCollectionsAsArray } from "redux/shop/shop.selectors";
 
 class App extends Component {
   unSubscriptFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsData } = this.props;
-
-    creatCollectionAndDocuments(
-      "collections",
-      collectionsData.map(({ title, items }) => ({ title, items }))
-    );
+    const { setCurrentUser } = this.props;
 
     this.unSubscriptFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -80,8 +73,7 @@ class App extends Component {
 }
 
 const mapState = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  collectionsData: selectCollectionsAsArray
+  currentUser: selectCurrentUser
 });
 
 const mapDispatch = dispatch => ({
