@@ -21,12 +21,12 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const createUserProfileDocument = async (userAuth, otherData) => {
-  if(!userAuth) return;
+  if (!userAuth) return;
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const userSnapshot = await userRef.get();
 
-  if(!userSnapshot.exists) {
-    const {displayName, email} = userAuth;
+  if (!userSnapshot.exists) {
+    const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
@@ -36,19 +36,31 @@ export const createUserProfileDocument = async (userAuth, otherData) => {
         createdAt,
         ...otherData
       });
-    } catch(err) {
+    } catch (err) {
       alert(`Create user error ${err}`);
     }
-    
   }
   return userRef;
-}
+};
+
+export const creatCollectionAndDocuments = async (
+  collectionKey,
+  objectToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+  objectToAdd.forEach(obj => {
+    const newDoc = collectionRef.doc();
+    batch.set(newDoc, obj);
+  });
+  batch.commit();
+};
 
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({
-  'login_hint': 'user@example.com',
-  'prompt': 'select_account'
+  login_hint: "user@example.com",
+  prompt: "select_account"
 });
-export const signInWithGoogle = ()  => auth.signInWithPopup(provider);
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
