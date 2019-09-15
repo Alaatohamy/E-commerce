@@ -1,6 +1,6 @@
-import React from 'react';
-import { CheckoutItems, Payment } from 'components';
-import './checkout-page.style.scss';
+import React from "react";
+import { CheckoutItems, Payment } from "components";
+import "./checkout-page.style.scss";
 
 const CheckoutPage = () => {
   return (
@@ -8,7 +8,7 @@ const CheckoutPage = () => {
       <CheckoutItems />
       <Payment />
     </section>
-  )
-}
+  );
+};
 
 export default CheckoutPage;

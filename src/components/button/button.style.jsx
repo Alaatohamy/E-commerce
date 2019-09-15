@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components"
+import styled, { css } from "styled-components";
 
 const black = css`
   background-color: #000;
@@ -8,7 +8,7 @@ const black = css`
     background-color: #fff;
     color: #000;
   }
-`
+`;
 
 const blue = css`
   background-color: #4285f4;
@@ -18,11 +18,11 @@ const blue = css`
     background-color: #fff;
     color: #4285f4;
   }
-`
+`;
 
 const getStyledButton = props => {
-  return props.color === "blue" ? blue : black
-}
+  return props.color === "blue" ? blue : black;
+};
 
 export const CustomButton = styled.button`
   padding: 15px 35px;
@@ -35,4 +35,4 @@ export const CustomButton = styled.button`
   width: auto;
 
   ${getStyledButton}
-`
+`;

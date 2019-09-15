@@ -1,4 +1,4 @@
-import { css } from "styled-components"
+import { css } from "styled-components";
 
 export const clearfix = css`
   &::before,
@@ -7,4 +7,4 @@ export const clearfix = css`
     clear: both;
     display: table;
   }
-`
+`;

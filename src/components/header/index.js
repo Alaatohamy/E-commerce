@@ -1,17 +1,17 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import { connect } from "react-redux"
-import { createStructuredSelector } from "reselect"
-import { ReactComponent as Logo } from "assets/logo.svg"
-import { auth } from "firebase-config/firebase.utils"
-import { CartDropdown, CartIcon } from "components"
-import { selectCartClicked } from "redux/cart/cart.selectors"
-import { selectCurrentUser } from "redux/user/user.selectors"
-import { MainHeader, Heading1, Navigation, ListItem } from "./header.style"
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { ReactComponent as Logo } from "assets/logo.svg";
+import { auth } from "firebase-config/firebase.utils";
+import { CartDropdown, CartIcon } from "components";
+import { selectCartClicked } from "redux/cart/cart.selectors";
+import { selectCurrentUser } from "redux/user/user.selectors";
+import { MainHeader, Heading1, Navigation, ListItem } from "./header.style";
 
 class Header extends React.Component {
   render() {
-    const { currentUser, clicked } = this.props
+    const { currentUser, clicked } = this.props;
 
     return (
       <MainHeader>
@@ -43,13 +43,13 @@ class Header extends React.Component {
         </Navigation>
         {clicked ? <CartDropdown /> : null}
       </MainHeader>
-    )
+    );
   }
 }
 
 const mapState = createStructuredSelector({
   currentUser: selectCurrentUser,
-  clicked: selectCartClicked,
-})
+  clicked: selectCartClicked
+});
 
-export default connect(mapState)(Header)
+export default connect(mapState)(Header);

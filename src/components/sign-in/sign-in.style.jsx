@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const ActionsContainer = styled.div`
   margin-top: 45px;
@@ -7,4 +7,4 @@ export const ActionsContainer = styled.div`
     margin-inline-start: 20px;
     float: right;
   }
-`
+`;

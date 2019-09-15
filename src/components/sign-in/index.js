@@ -1,38 +1,38 @@
-import React from "react"
-import { Button, CustomInput } from "components"
-import { signInWithGoogle, auth } from "firebase-config/firebase.utils"
-import { ActionsContainer } from "./sign-in.style"
+import React from "react";
+import { Button, CustomInput } from "components";
+import { signInWithGoogle, auth } from "firebase-config/firebase.utils";
+import { ActionsContainer } from "./sign-in.style";
 
 class SignIn extends React.Component {
   state = {
     email: "",
-    password: "",
-  }
+    password: ""
+  };
 
   handleChange = e => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     this.setState({
-      [name]: value,
-    })
-  }
+      [name]: value
+    });
+  };
 
   handleSubmit = async e => {
-    e.preventDefault()
-    const { email, password } = this.state
+    e.preventDefault();
+    const { email, password } = this.state;
 
     try {
-      await auth.signInWithEmailAndPassword(email, password)
+      await auth.signInWithEmailAndPassword(email, password);
       this.setState({
         email: "",
-        password: "",
-      })
+        password: ""
+      });
     } catch (err) {
-      alert("Check your email or password again, please")
+      alert("Check your email or password again, please");
     }
-  }
+  };
 
   render() {
-    const { email, password } = this.state
+    const { email, password } = this.state;
 
     return (
       <section className="form sign-in">
@@ -68,8 +68,8 @@ class SignIn extends React.Component {
           </ActionsContainer>
         </form>
       </section>
-    )
+    );
   }
 }
 
-export default SignIn
+export default SignIn;
