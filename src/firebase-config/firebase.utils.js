@@ -51,9 +51,29 @@ export const createCollectionAndDoc = async (collectionName, dataToAdd) => {
     batch.set(newDoc, element);
   });
   /** Fire batched request
-   * @return promise, void on success, error on fail
+   * @returns {promise}, void on success, error on fail
    */
   return await batch.commit();
+};
+
+/** Make the collection data ready to use in our webApp, add [id, routeName] and convert array to object
+ * @param {array} collection
+ * @returns {object} collection
+ */
+export const transformCollectionData = async collection => {
+  const data = await collection.docs.map(doc => ({
+    ...doc.data(),
+    id: doc.id
+  }));
+
+  return data.reduce((acc, item) => {
+    console.log(acc);
+    acc[item.title.toLowerCase()] = {
+      ...item,
+      routeName: encodeURI(item.title.toLowerCase())
+    };
+    return acc;
+  }, {});
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();
