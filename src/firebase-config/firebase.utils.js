@@ -43,17 +43,17 @@ export const createUserProfileDocument = async (userAuth, otherData) => {
   return userRef;
 };
 
-export const creatCollectionAndDocuments = async (
-  collectionKey,
-  objectToAdd
-) => {
-  const collectionRef = firestore.collection(collectionKey);
+export const createCollectionAndDoc = async (collectionName, dataToAdd) => {
+  const collectionRef = firestore.collection(collectionName);
   const batch = firestore.batch();
-  objectToAdd.forEach(obj => {
+  dataToAdd.forEach(element => {
     const newDoc = collectionRef.doc();
-    batch.set(newDoc, obj);
+    batch.set(newDoc, element);
   });
-  batch.commit();
+  /** Fire batched request
+   * @return promise, void on success, error on fail
+   */
+  return await batch.commit();
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();
