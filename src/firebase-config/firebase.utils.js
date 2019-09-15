@@ -67,7 +67,6 @@ export const transformCollectionData = async collection => {
   }));
 
   return data.reduce((acc, item) => {
-    console.log(acc);
     acc[item.title.toLowerCase()] = {
       ...item,
       routeName: encodeURI(item.title.toLowerCase())
