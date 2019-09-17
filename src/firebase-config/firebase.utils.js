@@ -60,8 +60,8 @@ export const createCollectionAndDoc = async (collectionName, dataToAdd) => {
  * @param {array} collection
  * @returns {object} collection
  */
-export const transformCollectionData = async collection => {
-  const data = await collection.docs.map(doc => ({
+export const transformCollectionData = collection => {
+  const data = collection.docs.map(doc => ({
     ...doc.data(),
     id: doc.id
   }));

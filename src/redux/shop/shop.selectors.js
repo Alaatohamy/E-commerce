@@ -7,6 +7,7 @@ export const selectCollections = createSelector(
   shop => shop.collections
 );
 
+/** Get collections as an object and return it as an array */
 export const selectCollectionsAsArray = createSelector(
   selectCollections,
   collections =>
@@ -18,3 +19,13 @@ export const selectCollection = title =>
     selectCollections,
     collections => (collections ? collections[title] : null)
   );
+
+export const selectIsFetching = createSelector(
+  selectShop,
+  shop => shop.isFetching
+);
+
+export const selectCollectionExist = createSelector(
+  selectCollections,
+  collections => !!collections
+);
