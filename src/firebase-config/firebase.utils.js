@@ -75,11 +75,10 @@ export const transformCollectionData = collection => {
   }, {});
 };
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   login_hint: "user@example.com",
   prompt: "select_account"
 });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
