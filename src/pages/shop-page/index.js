@@ -1,17 +1,9 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { CollectionPreview, WithSpinner } from "components";
+import CollectionPreviewContainer from "components/collection-preview/collection-preview.container";
+import CollectionSectionContainer from "components/collection-section/collection-section.container";
 import { fetchShopDataAsync } from "redux/shop/shop.actions";
-import {
-  selectIsFetching,
-  selectCollectionExist
-} from "redux/shop/shop.selectors";
-import CollectionPage from "../collection-page";
-
-const CollectionPreviewWrapper = WithSpinner(CollectionPreview);
-const CollectionPageWrapper = WithSpinner(CollectionPage);
 
 class ShopPage extends React.Component {
   componentDidMount() {
@@ -20,22 +12,18 @@ class ShopPage extends React.Component {
   }
 
   render() {
-    const { match, isFetching, collectionExist } = this.props;
+    const { match } = this.props;
 
     return (
       <section className="shop-page">
         <Route
           exact
           path={`${match.path}`}
-          render={props => (
-            <CollectionPreviewWrapper isLoading={isFetching} {...props} />
-          )}
+          component={CollectionPreviewContainer}
         />
         <Route
           path={`${match.path}/:collectionId`}
-          render={props => (
-            <CollectionPageWrapper isLoading={!collectionExist} {...props} />
-          )}
+          component={CollectionSectionContainer}
         />
       </section>
     );
@@ -46,12 +34,7 @@ const mapDispatch = dispatch => ({
   fetchShopDataAsync: () => dispatch(fetchShopDataAsync())
 });
 
-const mapState = createStructuredSelector({
-  isFetching: selectIsFetching,
-  collectionExist: selectCollectionExist
-});
-
 export default connect(
-  mapState,
+  null,
   mapDispatch
 )(ShopPage);
