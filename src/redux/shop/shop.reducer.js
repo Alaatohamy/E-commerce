@@ -1,4 +1,4 @@
-import { SHOP_ACTION_TYPES } from "./shop.types";
+import { ShopActionTypes } from "./shop.types";
 
 const INITIAL_STATE = {
   isFetching: false,
@@ -8,18 +8,18 @@ const INITIAL_STATE = {
 
 export const shopReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SHOP_ACTION_TYPES.FETCH_SHOP_DATA_START:
+    case ShopActionTypes.FETCH_SHOP_DATA_START:
       return {
         ...state,
         isFetching: true
       };
-    case SHOP_ACTION_TYPES.FETCH_SHOP_DATA_SUCCESS:
+    case ShopActionTypes.FETCH_SHOP_DATA_SUCCESS:
       return {
         ...state,
         isFetching: false,
         collections: action.payload
       };
-    case SHOP_ACTION_TYPES.FETCH_SHOP_DATA_FAILURE:
+    case ShopActionTypes.FETCH_SHOP_DATA_FAILURE:
       return {
         ...state,
         isFetching: false,

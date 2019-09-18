@@ -1,5 +1,5 @@
 import { takeEvery, put, call } from "redux-saga/effects";
-import { SHOP_ACTION_TYPES } from "./shop.types";
+import { ShopActionTypes } from "./shop.types";
 import { fetchShopDataSuccess, fetchShopDataFailure } from "./shop.actions";
 import {
   firestore,
@@ -18,5 +18,5 @@ export function* fetchShopDataAsync() {
 }
 
 export function* fetchShopDataStart() {
-  yield takeEvery(SHOP_ACTION_TYPES.FETCH_SHOP_DATA_START, fetchShopDataAsync);
+  yield takeEvery(ShopActionTypes.FETCH_SHOP_DATA_START, fetchShopDataAsync);
 }
