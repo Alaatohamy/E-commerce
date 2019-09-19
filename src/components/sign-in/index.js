@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { Button, CustomInput } from "components";
-import { auth } from "firebase-config/firebase.utils";
-import { googleSignInStart } from "redux/user/user.actions";
+import { googleSignInStart, emailSignInStart } from "redux/user/user.actions";
+import { selectSignInError } from "redux/user/user.selectors";
 import { ActionsContainer } from "./sign-in.style";
 import {
   Error,
@@ -27,21 +28,18 @@ class SignIn extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { email, password } = this.state;
+    const { emailSignInStart } = this.props;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({
-        email: "",
-        password: ""
-      });
-    } catch (err) {
-      alert("Check your email or password again, please");
-    }
+    emailSignInStart(email, password);
+    this.setState({
+      email: "",
+      password: ""
+    });
   };
 
   render() {
     const { email, password } = this.state;
-    const { googleSignInStart } = this.props;
+    const { googleSignInStart, error } = this.props;
 
     return (
       <section>
@@ -76,16 +74,23 @@ class SignIn extends React.Component {
             />
           </ActionsContainer>
         </FormContainer>
+        {error ? <Error>{error}</Error> : null}
       </section>
     );
   }
 }
 
 const mapDispatch = dispatch => ({
-  googleSignInStart: () => dispatch(googleSignInStart())
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) =>
+    dispatch(emailSignInStart({ email, password }))
+});
+
+const mapState = createStructuredSelector({
+  error: selectSignInError
 });
 
 export default connect(
-  null,
+  mapState,
   mapDispatch
 )(SignIn);

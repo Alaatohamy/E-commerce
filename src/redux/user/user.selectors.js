@@ -11,3 +11,8 @@ export const selectCurrentUserName = createSelector(
   currentUser =>
     currentUser ? currentUser.displayName.split(" ")[0] : currentUser
 );
+
+export const selectSignInError = createSelector(
+  selectUser,
+  user => user.error
+);
