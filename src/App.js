@@ -6,8 +6,14 @@ import "./App.css";
 import { HomePage, ShopPage, SignPage, CheckoutPage } from "pages";
 import { Header } from "components";
 import { selectCurrentUser } from "redux/user/user.selectors";
+import { setCurrentUser } from "redux/user/user.actions";
 
 class App extends Component {
+  componentDidMount() {
+    const { setCurrentUser } = this.props;
+    setCurrentUser();
+  }
+
   render() {
     const { currentUser } = this.props;
 
@@ -35,4 +41,11 @@ const mapState = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapState)(App);
+const mapDispatch = dispatch => ({
+  setCurrentUser: () => dispatch(setCurrentUser())
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(App);

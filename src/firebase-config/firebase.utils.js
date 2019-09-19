@@ -4,6 +4,7 @@ import * as firebase from "firebase/app";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import { rejects } from "assert";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCaSTvvIVTkX8aw2dXjcYHx8gizX8rgyPs",
@@ -73,6 +74,15 @@ export const transformCollectionData = collection => {
     };
     return acc;
   }, {});
+};
+
+export const checkUserAuth = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
+      unsubscribe();
+      resolve(authUser);
+    }, reject);
+  });
 };
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
