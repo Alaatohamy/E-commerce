@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { ReactComponent as Logo } from "assets/logo.svg";
-import { auth } from "firebase-config/firebase.utils";
 import { CartDropdown, CartIcon } from "components";
 import { selectCartClicked } from "redux/cart/cart.selectors";
 import { selectCurrentUser } from "redux/user/user.selectors";
+import { signOut } from "redux/user/user.actions";
 import { MainHeader, Heading1, Navigation, ListItem } from "./header.style";
 
 class Header extends React.Component {
   render() {
-    const { currentUser, clicked } = this.props;
+    const { currentUser, clicked, signOut } = this.props;
 
     return (
       <MainHeader>
@@ -29,7 +29,7 @@ class Header extends React.Component {
             {/* <ListItem><Link to="/contact">Contact</Link></ListItem> */}
             {currentUser ? (
               <>
-                <ListItem onClick={() => auth.signOut()}>Sign Out</ListItem>
+                <ListItem onClick={signOut}>Sign Out</ListItem>
                 <ListItem>
                   <CartIcon />
                 </ListItem>
@@ -52,4 +52,10 @@ const mapState = createStructuredSelector({
   clicked: selectCartClicked
 });
 
-export default connect(mapState)(Header);
+const mapDispatch = dispatch => ({
+  signOut: () => dispatch(signOut())
+});
+export default connect(
+  mapState,
+  mapDispatch
+)(Header);
