@@ -4,6 +4,12 @@ import { Button, CustomInput } from "components";
 import { auth } from "firebase-config/firebase.utils";
 import { googleSignInStart } from "redux/user/user.actions";
 import { ActionsContainer } from "./sign-in.style";
+import {
+  Error,
+  FormDescription,
+  FormTitle,
+  FormContainer
+} from "styles/general/custom-form";
 
 class SignIn extends React.Component {
   state = {
@@ -38,10 +44,10 @@ class SignIn extends React.Component {
     const { googleSignInStart } = this.props;
 
     return (
-      <section className="form sign-in">
-        <h2 className="title">I already have an account</h2>
-        <p>Sign in with your email and password</p>
-        <form onSubmit={this.handleSubmit}>
+      <section>
+        <FormTitle>I already have an account</FormTitle>
+        <FormDescription>Sign in with your email and password</FormDescription>
+        <FormContainer onSubmit={this.handleSubmit}>
           <CustomInput
             type="email"
             name="email"
@@ -69,7 +75,7 @@ class SignIn extends React.Component {
               onClick={googleSignInStart}
             />
           </ActionsContainer>
-        </form>
+        </FormContainer>
       </section>
     );
   }

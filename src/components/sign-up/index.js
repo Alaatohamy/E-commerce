@@ -4,7 +4,12 @@ import {
   auth,
   createUserProfileDocument
 } from "firebase-config/firebase.utils";
-
+import {
+  Error,
+  FormDescription,
+  FormTitle,
+  FormContainer
+} from "styles/general/custom-form";
 class SignUp extends React.Component {
   state = {
     displayName: "",
@@ -61,9 +66,9 @@ class SignUp extends React.Component {
 
     return (
       <section className="form">
-        <h1 className="title">I do not have a account</h1>
-        <p>Sign up with your email and password</p>
-        <form onSubmit={this.handleSubmit}>
+        <FormTitle>I do not have a account</FormTitle>
+        <FormDescription>Sign up with your email and password</FormDescription>
+        <FormContainer onSubmit={this.handleSubmit}>
           <CustomInput
             type="text"
             name="displayName"
@@ -101,7 +106,8 @@ class SignUp extends React.Component {
             handleChange={this.handleChange}
           />
           <Button text="Sign up" color="black" />
-        </form>
+        </FormContainer>
+        <Error></Error>
       </section>
     );
   }
