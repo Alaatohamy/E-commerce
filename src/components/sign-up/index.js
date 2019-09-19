@@ -1,9 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { Button, CustomInput } from "components";
-import {
-  auth,
-  createUserProfileDocument
-} from "firebase-config/firebase.utils";
+import { signUpStart } from "redux/user/user.actions";
+import { selectSignOutError } from "redux/user/user.selectors";
 import {
   Error,
   FormDescription,
@@ -28,41 +28,24 @@ class SignUp extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { displayName, email, password, confirm_password } = this.state;
+    const { signUpStart } = this.props;
+
     if (password !== confirm_password) {
       alert("Password doesn't match confirmed password");
       return;
     }
-
-    try {
-      /** Authenticate the user with email and password
-       * @param {string} email
-       * @param {string} password
-       * @returns {object} Authenticated user
-       * */
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      /** Save the user at firestore, call it here to add displayName to saved data.
-       * @param {object} user - contain only email and password from the user data(what er authenticate with)
-       * @param {object} otherData -  any additional data
-       * @returns {object} user reference
-       * */
-      await createUserProfileDocument(user, { displayName });
-      this.setState({
-        displayName: "",
-        email: "",
-        password: "",
-        confirm_password: ""
-      });
-    } catch (err) {
-      alert(err.message);
-    }
+    signUpStart({ email, password, displayName });
+    this.setState({
+      displayName: "",
+      email: "",
+      password: "",
+      confirm_password: ""
+    });
   };
 
   render() {
     const { displayName, email, password, confirm_password } = this.state;
+    const { error } = this.props;
 
     return (
       <section className="form">
@@ -107,10 +90,21 @@ class SignUp extends React.Component {
           />
           <Button text="Sign up" color="black" />
         </FormContainer>
-        <Error></Error>
+        {error ? <Error>{error}</Error> : null}
       </section>
     );
   }
 }
 
-export default SignUp;
+const mapState = createStructuredSelector({
+  error: selectSignOutError
+});
+
+const mapDispatch = dispatch => ({
+  signUpStart: user => dispatch(signUpStart(user))
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(SignUp);

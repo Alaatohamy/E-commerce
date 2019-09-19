@@ -4,7 +4,9 @@ import {
   signInSuccess,
   signInFailure,
   signOutSuccess,
-  signOutFailure
+  signOutFailure,
+  signUpSuccess,
+  signUpFailure
 } from "./user.actions";
 import {
   auth,
@@ -50,7 +52,7 @@ function* emailSignIn({ payload: { email, password } }) {
   }
 }
 
-export function* isUserAuthenticated() {
+function* isUserAuthenticated() {
   try {
     const authUser = yield checkUserAuth();
     if (!authUser) return;
@@ -60,12 +62,40 @@ export function* isUserAuthenticated() {
   }
 }
 
-export function* handleSignOut() {
+function* handleSignOut() {
   try {
     yield auth.signOut();
     yield put(signOutSuccess());
   } catch (error) {
     yield put(signOutFailure());
+  }
+}
+
+function* signUpSaga({ payload: { email, password, displayName } }) {
+  try {
+    /** Authenticate the user with email and password
+     * @param {string} email
+     * @param {string} password
+     * @returns {object} Authenticated user
+     * */
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+
+    /** Save the user at firestore, call it here to add displayName to saved data.
+     * @param {object} user - contain only email and password from the user data(what er authenticate with)
+     * @param {object} otherData -  any additional data
+     * @returns {object} user reference
+     * */
+    const createdUser = yield createUserProfileDocument(user, { displayName });
+    const userSnapshot = yield createdUser.get();
+    /**Add current user to the redux store */
+    yield put(
+      signUpSuccess({
+        id: userSnapshot.id,
+        ...userSnapshot.data()
+      })
+    );
+  } catch (error) {
+    yield put(signUpFailure(error.message));
   }
 }
 
@@ -86,11 +116,16 @@ export function* onSignOut() {
   yield takeLatest(UserActionTypes.SIGN_OUT_START, handleSignOut);
 }
 
+export function* onSignUp() {
+  yield takeLatest(UserActionTypes.SIGN_UP_START, signUpSaga);
+}
+
 export default function* userSaga() {
   yield all([
     onGoogleSignInStart(),
     onEmailSignIn(),
     onSetCurrentUser(),
-    onSignOut()
+    onSignOut(),
+    onSignUp()
   ]);
 }
