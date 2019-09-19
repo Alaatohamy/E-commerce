@@ -15,9 +15,14 @@ import {
   checkUserAuth
 } from "firebase-config/firebase.utils";
 
-function* addUserSnapshotToStore(user) {
+function* addUserSnapshotToStore(user, additionalData) {
   try {
-    const userRef = yield createUserProfileDocument(user);
+    /** Save the user at firestore, call it here to add displayName to saved data.
+     * @param {object} user - contain only email and password from the user data(what er authenticate with)
+     * @param {object} otherData -  any additional data
+     * @returns {object} user reference
+     * */
+    const userRef = yield createUserProfileDocument(user, additionalData);
     const userSnapshot = yield userRef.get();
     /**Add current user to the redux store */
     yield put(
@@ -79,21 +84,7 @@ function* signUpSaga({ payload: { email, password, displayName } }) {
      * @returns {object} Authenticated user
      * */
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-
-    /** Save the user at firestore, call it here to add displayName to saved data.
-     * @param {object} user - contain only email and password from the user data(what er authenticate with)
-     * @param {object} otherData -  any additional data
-     * @returns {object} user reference
-     * */
-    const createdUser = yield createUserProfileDocument(user, { displayName });
-    const userSnapshot = yield createdUser.get();
-    /**Add current user to the redux store */
-    yield put(
-      signUpSuccess({
-        id: userSnapshot.id,
-        ...userSnapshot.data()
-      })
-    );
+    yield addUserSnapshotToStore(user, { displayName });
   } catch (error) {
     yield put(signUpFailure(error.message));
   }
