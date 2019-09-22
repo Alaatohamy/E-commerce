@@ -17,7 +17,7 @@ export const selectSignInError = createSelector(
   user => user.signInError
 );
 
-export const selectSignOutError = createSelector(
+export const selectSignUpError = createSelector(
   selectUser,
   user => user.signUpError
 );

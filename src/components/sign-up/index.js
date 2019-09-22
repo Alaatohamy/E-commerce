@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { Button, CustomInput } from "components";
 import { signUpStart } from "redux/user/user.actions";
-import { selectSignOutError } from "redux/user/user.selectors";
+import { selectSignUpError } from "redux/user/user.selectors";
 import {
   Error,
   FormDescription,
@@ -12,7 +12,7 @@ import {
 } from "styles/general/custom-form";
 
 const SignUp = ({ signUpStart, error }) => {
-  const { userCredentials, setUserCredentials } = useState({
+  const [userCredentials, setUserCredentials] = useState({
     displayName: "",
     email: "",
     password: "",
@@ -90,7 +90,7 @@ const SignUp = ({ signUpStart, error }) => {
 };
 
 const mapState = createStructuredSelector({
-  error: selectSignOutError
+  error: selectSignUpError
 });
 
 const mapDispatch = dispatch => ({
