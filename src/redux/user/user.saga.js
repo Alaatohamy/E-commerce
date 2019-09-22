@@ -1,11 +1,10 @@
 import { all, takeLatest, put } from "redux-saga/effects";
 import { UserActionTypes } from "./user.types";
 import {
-  signInSuccess,
+  signInUpSuccess,
   signInFailure,
   signOutSuccess,
   signOutFailure,
-  signUpSuccess,
   signUpFailure
 } from "./user.actions";
 import {
@@ -26,7 +25,7 @@ function* addUserSnapshotToStore(user, additionalData) {
     const userSnapshot = yield userRef.get();
     /**Add current user to the redux store */
     yield put(
-      signInSuccess({
+      signInUpSuccess({
         id: userSnapshot.id,
         ...userSnapshot.data()
       })
