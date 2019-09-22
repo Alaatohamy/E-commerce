@@ -27,7 +27,6 @@ const SignIn = ({ googleSignInStart, error, emailSignInStart }) => {
     e.preventDefault();
 
     emailSignInStart(email, password);
-    setUserCredentials({ email: "", password: "" });
   };
 
   return (

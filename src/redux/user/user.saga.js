@@ -26,7 +26,6 @@ function* addUserSnapshotToStore(user, additionalData) {
     const userSnapshot = yield userRef.get();
     /**Add current user to the redux store */
     if (additionalData) {
-      yield console.log("true");
       yield put(
         signUpSuccess({
           id: userSnapshot.id,
@@ -34,7 +33,6 @@ function* addUserSnapshotToStore(user, additionalData) {
         })
       );
     } else {
-      yield console.log("else");
       yield put(
         signInSuccess({
           id: userSnapshot.id,

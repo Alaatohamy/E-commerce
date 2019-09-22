@@ -33,12 +33,6 @@ const SignUp = ({ signUpStart, error }) => {
       return;
     }
     signUpStart({ email, password, displayName });
-    setUserCredentials({
-      displayName: "",
-      email: "",
-      password: "",
-      confirm_password: ""
-    });
   };
 
   return (
