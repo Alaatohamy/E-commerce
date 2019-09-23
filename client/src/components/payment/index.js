@@ -4,8 +4,9 @@ import { createStructuredSelector } from "reselect";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { selectTotalPrice } from "redux/cart/cart.selectors";
+import { clearCart } from "redux/cart/cart.actions";
 
-const Payment = ({ totalPrice }) => {
+const Payment = ({ totalPrice, clearCart }) => {
   const stripPrice = totalPrice * 100;
   const publishablekey = "pk_test_6Fpl9uWUd5ku58jw4feyE116006h7YbkT5";
   const onToken = token => {
@@ -16,6 +17,7 @@ const Payment = ({ totalPrice }) => {
       })
       .then(response => {
         alert("Payment succeeded");
+        clearCart();
       })
       .catch(error => {
         console.log("payment error: ", error);
@@ -45,4 +47,11 @@ const mapState = createStructuredSelector({
   totalPrice: selectTotalPrice
 });
 
-export default connect(mapState)(Payment);
+const mapDispatch = dispatch => ({
+  clearCart: () => dispatch(clearCart())
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(Payment);
