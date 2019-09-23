@@ -1,8 +1,23 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect";
 
 const selectUser = state => state.user;
-export const selectCurrentUser = createSelector(selectUser, user => user.currentUser);
+export const selectCurrentUser = createSelector(
+  selectUser,
+  user => user.currentUser
+);
 
 export const selectCurrentUserName = createSelector(
-  selectCurrentUser, currentUser => currentUser? currentUser.displayName.split(' ')[0] : currentUser
+  selectCurrentUser,
+  currentUser =>
+    currentUser ? currentUser.displayName.split(" ")[0] : currentUser
+);
+
+export const selectSignInError = createSelector(
+  selectUser,
+  user => user.signInError
+);
+
+export const selectSignUpError = createSelector(
+  selectUser,
+  user => user.signUpError
 );

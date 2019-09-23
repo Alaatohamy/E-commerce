@@ -1,72 +1,97 @@
-import React from 'react';
-import { Button, CustomInput } from 'components';
-import { auth, createUserProfileDocument } from 'firebase-config/firebase.utils';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { Button, CustomInput } from "components";
+import { signUpStart } from "redux/user/user.actions";
+import { selectSignUpError } from "redux/user/user.selectors";
+import {
+  Error,
+  FormDescription,
+  FormTitle,
+  FormContainer
+} from "styles/general/custom-form";
 
-class SignUp extends React.Component {
-  state = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirm_password: ''
+const SignUp = ({ signUpStart, error }) => {
+  const [userCredentials, setUserCredentials] = useState({
+    displayName: "",
+    email: "",
+    password: "",
+    confirm_password: ""
+  });
+  const { displayName, email, password, confirm_password } = userCredentials;
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  handleChange = e => {
-    const {name, value} = e.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit = async e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const {displayName, email, password, confirm_password} = this.state;
-    if(password !== confirm_password) {
+
+    if (password !== confirm_password) {
       alert("Password doesn't match confirmed password");
       return;
     }
+    signUpStart({ email, password, displayName });
+  };
 
-    try {
-      /** Authenticate the user with email and password
-       * @param {string} email
-       * @param {string} password
-       * @return {object} Authenticated user
-       * */
-      const {user} = await auth.createUserWithEmailAndPassword(email, password);
+  return (
+    <section className="form">
+      <FormTitle>I do not have a account</FormTitle>
+      <FormDescription>Sign up with your email and password</FormDescription>
+      <FormContainer onSubmit={handleSubmit}>
+        <CustomInput
+          type="text"
+          name="displayName"
+          required
+          placeholder="Name"
+          label="Name"
+          value={displayName}
+          handleChange={handleChange}
+        />
+        <CustomInput
+          type="email"
+          name="email"
+          required
+          placeholder="Email"
+          label="Email"
+          value={email}
+          handleChange={handleChange}
+        />
+        <CustomInput
+          type="password"
+          name="password"
+          required
+          placeholder="Password"
+          label="Password"
+          value={password}
+          handleChange={handleChange}
+        />
+        <CustomInput
+          type="password"
+          name="confirm_password"
+          required
+          placeholder="Confirm password"
+          label="Confirm password"
+          value={confirm_password}
+          handleChange={handleChange}
+        />
+        <Button text="Sign up" color="black" />
+      </FormContainer>
+      {error ? <Error>{error}</Error> : null}
+    </section>
+  );
+};
 
-      /** Save the user at firestore, call it here to add displayName to saved data.
-       * @param {object} user - contain only email and password from the user data(what er authenticate with)
-       * @param {object} otherData -  any additional data
-       * @return {object} user reference
-       * */
-      await createUserProfileDocument(user, {displayName});
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirm_password: ''
-      });
-    } catch(err){
-      alert(err.message);
-    }
-  }
+const mapState = createStructuredSelector({
+  error: selectSignUpError
+});
 
-  render() {
-    const {displayName, email, password, confirm_password} = this.state;
+const mapDispatch = dispatch => ({
+  signUpStart: user => dispatch(signUpStart(user))
+});
 
-    return (
-      <section className="form">
-        <h1 className="title">I do not have a account</h1>
-        <p>Sign up with your email and password</p>
-        <form onSubmit={this.handleSubmit}>
-          <CustomInput type="text" name="displayName" required placeholder="Name" label="Name" value={displayName} handleChange={this.handleChange} />
-          <CustomInput type="email" name="email" required placeholder="Email" label="Email" value={email} handleChange={this.handleChange} />
-          <CustomInput type="password" name="password" required placeholder="Password" label="Password" value={password} handleChange={this.handleChange} />
-          <CustomInput type="password" name="confirm_password" required placeholder="Confirm password" label="Confirm password" value={confirm_password} handleChange={this.handleChange} />
-          <Button text="Sign up" color="black" />
-        </form>
-      </section>
-    )
-  }
-}
-
-export default SignUp;
+export default connect(
+  mapState,
+  mapDispatch
+)(SignUp);

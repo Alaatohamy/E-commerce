@@ -1,54 +1,83 @@
-import React from 'react';
-import { Button, CustomInput } from 'components';
-import { signInWithGoogle, auth } from 'firebase-config/firebase.utils';
-import './sign-in.style.scss';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { Button, CustomInput } from "components";
+import { googleSignInStart, emailSignInStart } from "redux/user/user.actions";
+import { selectSignInError } from "redux/user/user.selectors";
+import { ActionsContainer } from "./sign-in.style";
+import {
+  Error,
+  FormDescription,
+  FormTitle,
+  FormContainer
+} from "styles/general/custom-form";
 
-class SignIn extends React.Component {
-  state = {
-    email: '',
-    password: ''
+const SignIn = ({ googleSignInStart, error, emailSignInStart }) => {
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: ""
+  });
+  const { email, password } = userCredentials;
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  handleChange = e => {
-    const {name, value} = e.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit = async e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const {email, password} = this.state;
-    
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({
-        email: '',
-        password: ''
-      })
-    } catch(err) {
-      alert('Check your email or password again, please');
-    }
-  }
 
-  render() {
-    const {email, password} = this.state;
+    emailSignInStart(email, password);
+  };
 
-    return (
-      <section className="form sign-in">
-        <h2 className="title">I already have an account</h2>
-        <p>Sign in with your email and password</p>
-        <form onSubmit={this.handleSubmit}>
-          <CustomInput type="email" name="email" required placeholder="Email" label="Email" value={email} handleChange={this.handleChange} />
-          <CustomInput type="password" name="password" required placeholder="Password" label="Password" value={password} handleChange={this.handleChange} />
-          <div className="actions">
-            <Button text="Sign in" color="black" />
-            <Button text="Sign in with Google" color="blue" type="button" onClick={signInWithGoogle} />
-          </div>
-        </form>
-      </section>
-    )
-  }
-}
+  return (
+    <section>
+      <FormTitle>I already have an account</FormTitle>
+      <FormDescription>Sign in with your email and password</FormDescription>
+      <FormContainer onSubmit={handleSubmit}>
+        <CustomInput
+          type="email"
+          name="email"
+          required
+          placeholder="Email"
+          label="Email"
+          value={email}
+          handleChange={handleChange}
+        />
+        <CustomInput
+          type="password"
+          name="password"
+          required
+          placeholder="Password"
+          label="Password"
+          value={password}
+          handleChange={handleChange}
+        />
+        <ActionsContainer>
+          <Button text="Sign in" color="black" />
+          <Button
+            text="Sign in with Google"
+            color="blue"
+            type="button"
+            onClick={googleSignInStart}
+          />
+        </ActionsContainer>
+      </FormContainer>
+      {error ? <Error>{error}</Error> : null}
+    </section>
+  );
+};
 
-export default SignIn;
+const mapDispatch = dispatch => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) =>
+    dispatch(emailSignInStart({ email, password }))
+});
+
+const mapState = createStructuredSelector({
+  error: selectSignInError
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(SignIn);

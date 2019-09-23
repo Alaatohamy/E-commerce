@@ -1,8 +1,12 @@
-import React from 'react';
-import './button.style.scss';
+import React from "react";
+import { CustomButton } from "./button.style";
 
-const Button = ({text, color, ...OtherProps}) => {
-  return <button className={`button ${color}`} {...OtherProps}>{text}</button>
-}
+const Button = ({ text, color, ...OtherProps }) => {
+  return (
+    <CustomButton color={color} {...OtherProps}>
+      {text}
+    </CustomButton>
+  );
+};
 
 export default Button;

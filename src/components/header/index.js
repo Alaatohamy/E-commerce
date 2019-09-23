@@ -1,45 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { ReactComponent as Logo } from 'assets/logo.svg';
-import { auth } from 'firebase-config/firebase.utils';
-import { CartDropdown, CartIcon } from 'components';
-import { selectCartClicked } from 'redux/cart/cart.selectors';
-import { selectCurrentUser } from 'redux/user/user.selectors';
-import './header.style.scss';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { ReactComponent as Logo } from "assets/logo.svg";
+import { CartDropdown, CartIcon } from "components";
+import { selectCartClicked } from "redux/cart/cart.selectors";
+import { selectCurrentUser } from "redux/user/user.selectors";
+import { signOut } from "redux/user/user.actions";
+import { MainHeader, Heading1, Navigation, ListItem } from "./header.style";
 
 class Header extends React.Component {
-  render(){
-    const { currentUser, clicked } = this.props;
+  render() {
+    const { currentUser, clicked, signOut } = this.props;
 
     return (
-      <header className="main-header clearfix">
-        <h1>
-          <Link to ="/">
+      <MainHeader>
+        <Heading1>
+          <Link to="/">
             <span className="visually-hidden">T-Commerce</span>
             <Logo title="T-Commerce logo" />
           </Link>
-        </h1>
-        <nav>
+        </Heading1>
+        <Navigation>
           <ul>
-            <li><Link to="/shop">Shop</Link></li>
-            {/* <li><Link to="/contact">Contact</Link></li> */}
-            {
-              currentUser? (
-                <>
-                  <li onClick={() => auth.signOut()}>Sign Out</li>
-                  <li>
-                    <CartIcon />
-                  </li>
-                </>
-              ) : <li><Link to="/sign-in">Sign in</Link></li>
-            }
+            <ListItem>
+              <Link to="/shop">Shop</Link>
+            </ListItem>
+            {/* <ListItem><Link to="/contact">Contact</Link></ListItem> */}
+            {currentUser ? (
+              <>
+                <ListItem onClick={signOut}>Sign Out</ListItem>
+                <ListItem>
+                  <CartIcon />
+                </ListItem>
+              </>
+            ) : (
+              <ListItem>
+                <Link to="/sign-in">Sign in</Link>
+              </ListItem>
+            )}
           </ul>
-        </nav>
-        { clicked ? <CartDropdown /> : null }
-      </header>
-    )
+        </Navigation>
+        {clicked ? <CartDropdown /> : null}
+      </MainHeader>
+    );
   }
 }
 
@@ -48,4 +52,10 @@ const mapState = createStructuredSelector({
   clicked: selectCartClicked
 });
 
-export default connect(mapState)(Header);
+const mapDispatch = dispatch => ({
+  signOut: () => dispatch(signOut())
+});
+export default connect(
+  mapState,
+  mapDispatch
+)(Header);
