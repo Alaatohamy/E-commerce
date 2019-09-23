@@ -1,12 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { selectCollection } from 'redux/shop/shop.selectors';
-import { CollectionSection } from 'components';
+import React from "react";
+import { CollectionSection } from "components";
+import CollectionsContext from "contexts/collections/collection.context";
 
-const CollectionPage = ({collection}) => <CollectionSection collection={collection} />
+const CollectionPage = ({ match }) => (
+  <CollectionsContext.Consumer>
+    {collections => {
+      const collection = collections[match.params.collectionId];
+      return <CollectionSection collection={collection} />;
+    }}
+  </CollectionsContext.Consumer>
+);
 
-const mapState = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state)
-});
-
-export default connect(mapState)(CollectionPage);
+export default CollectionPage;
