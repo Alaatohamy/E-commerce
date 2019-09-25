@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
 import { ReactComponent as Logo } from "assets/logo.svg";
 import { auth } from "firebase-config/firebase.utils";
 import { CartDropdown, CartIcon } from "components";
-import { selectCartClicked } from "redux/cart/cart.selectors";
 import UserContext from "contexts/user/user.context";
+import CartContext from "contexts/cart/cart.context";
 import "./header.style.scss";
 
-const Header = ({ clicked }) => {
+const Header = () => {
   const currentUser = useContext(UserContext);
+  const [clicked, setClicked] = useState(false);
+
+  const toggleCartDropDown = () => setClicked(!clicked);
 
   return (
     <header className="main-header clearfix">
@@ -29,9 +30,15 @@ const Header = ({ clicked }) => {
           {currentUser ? (
             <>
               <li onClick={() => auth.signOut()}>Sign Out</li>
-              <li>
-                <CartIcon />
-              </li>
+              <CartContext.Provider
+                value={{
+                  toggleCartDropDown
+                }}
+              >
+                <li>
+                  <CartIcon />
+                </li>
+              </CartContext.Provider>
             </>
           ) : (
             <li>
@@ -40,13 +47,17 @@ const Header = ({ clicked }) => {
           )}
         </ul>
       </nav>
-      {clicked ? <CartDropdown /> : null}
+      {clicked ? (
+        <CartContext.Provider
+          value={{
+            toggleCartDropDown
+          }}
+        >
+          <CartDropdown />
+        </CartContext.Provider>
+      ) : null}
     </header>
   );
 };
 
-const mapState = createStructuredSelector({
-  clicked: selectCartClicked
-});
-
-export default connect(mapState)(Header);
+export default Header;
