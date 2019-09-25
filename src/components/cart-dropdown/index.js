@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { Button, CartItem } from "components";
 import { selectCartItems } from "redux/cart/cart.selectors";
-import CartContext from "contexts/cart/cart.context";
+import { CartContext } from "providers/cart/cart.provider";
 import "./cart-dropdown.style.scss";
 
 const CartDropdown = props => {

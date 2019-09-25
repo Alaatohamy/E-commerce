@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "assets/logo.svg";
 import { auth } from "firebase-config/firebase.utils";
 import { CartDropdown, CartIcon } from "components";
 import UserContext from "contexts/user/user.context";
-import CartContext from "contexts/cart/cart.context";
+import { CartContext } from "providers/cart/cart.provider";
 import "./header.style.scss";
 
 const Header = () => {
   const currentUser = useContext(UserContext);
-  const [clicked, setClicked] = useState(false);
-
-  const toggleCartDropDown = () => setClicked(!clicked);
+  const { clicked } = useContext(CartContext);
 
   return (
     <header className="main-header clearfix">
@@ -30,15 +28,9 @@ const Header = () => {
           {currentUser ? (
             <>
               <li onClick={() => auth.signOut()}>Sign Out</li>
-              <CartContext.Provider
-                value={{
-                  toggleCartDropDown
-                }}
-              >
-                <li>
-                  <CartIcon />
-                </li>
-              </CartContext.Provider>
+              <li>
+                <CartIcon />
+              </li>
             </>
           ) : (
             <li>
@@ -47,15 +39,7 @@ const Header = () => {
           )}
         </ul>
       </nav>
-      {clicked ? (
-        <CartContext.Provider
-          value={{
-            toggleCartDropDown
-          }}
-        >
-          <CartDropdown />
-        </CartContext.Provider>
-      ) : null}
+      {clicked ? <CartDropdown /> : null}
     </header>
   );
 };
