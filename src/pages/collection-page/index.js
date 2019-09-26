@@ -1,10 +1,10 @@
 import React from "react";
 import { CollectionSection } from "components";
-import CollectionsContext from "contexts/collections/collection.context";
+import { CollectionsContext } from "providers/collection/collection.provider";
 
 const CollectionPage = ({ match }) => (
   <CollectionsContext.Consumer>
-    {collections => {
+    {({ collections }) => {
       const collection = collections[match.params.collectionId];
       return <CollectionSection collection={collection} />;
     }}
