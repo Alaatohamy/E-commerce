@@ -27,3 +27,6 @@ client/yarn-error.log*
 /node_modules
 yarn-debug.log*
 yarn-error.log*
+
+#root files
+.idea
