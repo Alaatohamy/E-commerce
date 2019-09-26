@@ -1,14 +1,10 @@
 import React, { useContext } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
 import { ReactComponent as ShoppingIcon } from "assets/shopping-bag.svg";
-import { selectCount } from "redux/cart/cart.selectors";
 import { CartContext } from "providers/cart/cart.provider";
 import "./cart-icon.style.scss";
 
-const CartIcon = ({ count }) => {
-  const { toggleCartDropDown } = useContext(CartContext);
-
+const CartIcon = () => {
+  const { toggleCartDropDown, count } = useContext(CartContext);
   return (
     <div className="cart-icon-wrapper" onClick={toggleCartDropDown}>
       <ShoppingIcon className="cart-icon" />
@@ -17,8 +13,4 @@ const CartIcon = ({ count }) => {
   );
 };
 
-const mapState = createStructuredSelector({
-  count: selectCount
-});
-
-export default connect(mapState)(CartIcon);
+export default CartIcon;

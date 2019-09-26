@@ -1,16 +1,15 @@
-import React from 'react';
-import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { selectCartItems, selectTotalPrice } from 'redux/cart/cart.selectors';
-import { CheckoutItem } from 'components';
-import './checkout-items.style.scss';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { CheckoutItem } from "components";
+import { CartContext } from "providers/cart/cart.provider";
+import "./checkout-items.style.scss";
 
-const CheckoutItems = ({ cartItems, totalPrice }) => {
+const CheckoutItems = () => {
+  const { cartItems, totalPrice } = useContext(CartContext);
+
   return (
     <>
-    {
-      cartItems.length? (
+      {cartItems.length ? (
         <table className="checkout-page-content">
           <thead>
             <tr>
@@ -22,7 +21,9 @@ const CheckoutItems = ({ cartItems, totalPrice }) => {
             </tr>
           </thead>
           <tbody>
-            { cartItems.map(item => <CheckoutItem key={item.id} item={item} />) }
+            {cartItems.map(item => (
+              <CheckoutItem key={item.id} item={item} />
+            ))}
           </tbody>
           <tfoot>
             <tr>
@@ -30,21 +31,23 @@ const CheckoutItems = ({ cartItems, totalPrice }) => {
             </tr>
           </tfoot>
         </table>
-      ): (
+      ) : (
         <div className="no-data-wrapper">
           <div className="no-data">
-            <p>Your Cart is Empty, <Link to="/shop">Shop Now <span role="img" aria-label="Sparkles">&#10024;</span></Link></p>
+            <p>
+              Your Cart is Empty,{" "}
+              <Link to="/shop">
+                Shop Now{" "}
+                <span role="img" aria-label="Sparkles">
+                  &#10024;
+                </span>
+              </Link>
+            </p>
           </div>
         </div>
-      )
-    }
-  </>
-  )
-}
+      )}
+    </>
+  );
+};
 
-const mapState = createStructuredSelector({
-  cartItems: selectCartItems,
-  totalPrice: selectTotalPrice
-});
-
-export default connect(mapState)(CheckoutItems);
+export default CheckoutItems;

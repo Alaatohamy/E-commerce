@@ -1,15 +1,12 @@
 import React, { useContext } from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 import { Button, CartItem } from "components";
-import { selectCartItems } from "redux/cart/cart.selectors";
 import { CartContext } from "providers/cart/cart.provider";
 import "./cart-dropdown.style.scss";
 
 const CartDropdown = props => {
-  const { cartItems, history } = props;
-  const { toggleCartDropDown } = useContext(CartContext);
+  const { history } = props;
+  const { cartItems, toggleCartDropDown } = useContext(CartContext);
 
   const handleClick = () => {
     history.push("/checkout");
@@ -39,8 +36,4 @@ const CartDropdown = props => {
   );
 };
 
-const mapState = createStructuredSelector({
-  cartItems: selectCartItems
-});
-
-export default withRouter(connect(mapState)(CartDropdown));
+export default withRouter(CartDropdown);

@@ -1,16 +1,21 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { addCartItem } from 'redux/cart/cart.actions';
-import './collection-item.style.scss';
+import React, { useContext } from "react";
+import { CartContext } from "providers/cart/cart.provider";
+import "./collection-item.style.scss";
 
-const CardItem = (props) => {
-  const {item, addCartItem} = props;
-  const {imageUrl, name, price} = item;
+const CardItem = props => {
+  const { item } = props;
+  const { imageUrl, name, price } = item;
+  const { addCartItem } = useContext(CartContext);
   return (
-    <li className="collection-card" >
-      <div className="background-image" style={{backgroundImage: `url(${imageUrl})`}}>
+    <li className="collection-card">
+      <div
+        className="background-image"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      >
         <div className="background-image--hover">
-          <button onClick={() => addCartItem(item)} type="button">Add to Cart</button>
+          <button onClick={() => addCartItem(item)} type="button">
+            Add to Cart
+          </button>
         </div>
       </div>
       <div className="collection-card__details clearfix">
@@ -18,11 +23,7 @@ const CardItem = (props) => {
         <p className="pull-end">{price}$</p>
       </div>
     </li>
-  )
-}
+  );
+};
 
-const mapDispatch = dispatch => ({
-  addCartItem: (item) => dispatch(addCartItem(item))
-});
-
-export default connect(null, mapDispatch)(CardItem);
+export default CardItem;

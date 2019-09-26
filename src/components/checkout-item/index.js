@@ -1,19 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import {
-  addCartItem,
-  removeCartItem,
-  decreaseCartItem
-} from "redux/cart/cart.actions";
+import React, { useContext } from "react";
+import { CartContext } from "providers/cart/cart.provider";
 import "./checkout-item.style.scss";
 
-const CheckoutItem = ({
-  item,
-  addCartItem,
-  decreaseCartItem,
-  removeCartItem
-}) => {
+const CheckoutItem = ({ item }) => {
   const { id, imageUrl, name, price, quantity } = item;
+  const { addCartItem, removeCartItem, decreaseItem } = useContext(CartContext);
+
   return (
     <tr className="checkout-item">
       <td>
@@ -25,7 +17,7 @@ const CheckoutItem = ({
           className="link"
           role="img"
           aria-label="Decrease arrow"
-          onClick={() => decreaseCartItem(item)}
+          onClick={() => decreaseItem(item)}
         >
           &#10094;
         </span>
@@ -49,13 +41,4 @@ const CheckoutItem = ({
   );
 };
 
-const mapDispatch = dispatch => ({
-  addCartItem: item => dispatch(addCartItem(item)),
-  decreaseCartItem: item => dispatch(decreaseCartItem(item)),
-  removeCartItem: id => dispatch(removeCartItem(id))
-});
-
-export default connect(
-  null,
-  mapDispatch
-)(CheckoutItem);
+export default CheckoutItem;

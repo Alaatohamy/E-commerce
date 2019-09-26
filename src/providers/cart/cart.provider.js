@@ -4,8 +4,8 @@ import { addItemToCart, decreaseCartItem } from "./cart.utils";
 export const CartContext = createContext({
   clicked: false,
   cartItems: [],
-  cartItemsCount: 0,
-  cartItemTotal: 0,
+  count: 0,
+  totalPrice: 0,
   toggleCartDropDown: () => {},
   addCartItem: () => {},
   removeCartItem: () => {},
@@ -15,22 +15,30 @@ export const CartContext = createContext({
 const CartProvider = ({ children }) => {
   const [clicked, setClicked] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [cartItemsCount, setCartItemsCount] = useState(0);
-  const [cartItemTotal, setCartItemTotal] = useState(0);
+  const [count, setCount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const toggleCartDropDown = () => setClicked(!clicked);
   const addCartItem = item => setCartItems(addItemToCart(cartItems, item));
-  const removeCartItem = id =>
-    setCartItems(cartItems.filter(item => item.id !== id));
+  const removeCartItem = id => {
+    return setCartItems(cartItems.filter(item => item.id !== id));
+  };
   const decreaseItem = item => setCartItems(decreaseCartItem(cartItems, item));
+
+  useEffect(() => {
+    setCount(() => cartItems.reduce((acc, item) => acc + item.quantity, 0));
+    setTotalPrice(() =>
+      cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    );
+  }, [cartItems]);
 
   return (
     <CartContext.Provider
       value={{
         clicked,
         cartItems,
-        cartItemTotal,
-        cartItemsCount,
+        totalPrice,
+        count,
         toggleCartDropDown,
         addCartItem,
         removeCartItem,
