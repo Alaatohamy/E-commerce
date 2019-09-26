@@ -1,5 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
-import { addItemToCart, decreaseCartItem } from "./cart.utils";
+import {
+  addItemToCart,
+  decreaseCartItem,
+  removeItem,
+  getCount,
+  getTotalPrice
+} from "./cart.utils";
 
 export const CartContext = createContext({
   clicked: false,
@@ -21,15 +27,13 @@ const CartProvider = ({ children }) => {
   const toggleCartDropDown = () => setClicked(!clicked);
   const addCartItem = item => setCartItems(addItemToCart(cartItems, item));
   const removeCartItem = id => {
-    return setCartItems(cartItems.filter(item => item.id !== id));
+    return setCartItems(removeItem(cartItems, id));
   };
   const decreaseItem = item => setCartItems(decreaseCartItem(cartItems, item));
 
   useEffect(() => {
-    setCount(() => cartItems.reduce((acc, item) => acc + item.quantity, 0));
-    setTotalPrice(() =>
-      cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    );
+    setCount(getCount(cartItems));
+    setTotalPrice(getTotalPrice(cartItems));
   }, [cartItems]);
 
   return (
