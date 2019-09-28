@@ -22,3 +22,6 @@ export const decreaseCartItem = (cartItems, itemToDecrease) => {
 
 export const getCartCount = cartItems =>
   cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
+export const getTotalPrice = cartItems =>
+  cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);

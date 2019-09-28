@@ -1,15 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import StripeCheckout from 'react-stripe-checkout';
-import { selectTotalPrice } from 'redux/cart/cart.selectors';
+import React from "react";
+import StripeCheckout from "react-stripe-checkout";
+import { Query } from "react-apollo";
+import { GET_CART_TOTAL_PRICE } from "graphql/queries";
 
-const Payment = ({totalPrice}) => {
+const PaymentView = ({ totalPrice }) => {
   const stripPrice = totalPrice * 100;
   const publishablekey = "pk_test_6Fpl9uWUd5ku58jw4feyE116006h7YbkT5";
   const onToken = token => {
-    alert('payment succeed');
-  }
+    alert("payment succeed");
+  };
 
   return (
     <StripeCheckout
@@ -24,11 +23,12 @@ const Payment = ({totalPrice}) => {
       token={onToken}
       stripeKey={publishablekey}
     />
-  )
-}
+  );
+};
 
-const mapState = createStructuredSelector({
-  totalPrice: selectTotalPrice
-});
-
-export default connect(mapState)(Payment);
+const Payment = () => (
+  <Query query={GET_CART_TOTAL_PRICE}>
+    {({ data: { totalPrice } }) => <PaymentView totalPrice={totalPrice} />}
+  </Query>
+);
+export default Payment;

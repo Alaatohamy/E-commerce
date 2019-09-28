@@ -1,5 +1,15 @@
-import { GET_CART_CLICKED, GET_CART_ITEMS, GET_CART_COUNT } from "./queries";
-import { addItemToCart, decreaseCartItem, getCartCount } from "./cart.utils";
+import {
+  GET_CART_CLICKED,
+  GET_CART_ITEMS,
+  GET_CART_COUNT,
+  GET_CART_TOTAL_PRICE
+} from "./queries";
+import {
+  addItemToCart,
+  decreaseCartItem,
+  getCartCount,
+  getTotalPrice
+} from "./cart.utils";
 
 /** Its object update the cache/local store by writing the implementation of the mutations or query */
 const resolvers = {
@@ -35,6 +45,11 @@ const resolvers = {
         data: { cartCount: getCartCount(newCartItems) }
       });
 
+      cache.writeQuery({
+        query: GET_CART_TOTAL_PRICE,
+        data: { totalPrice: getTotalPrice(newCartItems) }
+      });
+
       return cartItems;
     },
 
@@ -55,6 +70,11 @@ const resolvers = {
         data: { cartCount: getCartCount(newCartItems) }
       });
 
+      cache.writeQuery({
+        query: GET_CART_TOTAL_PRICE,
+        data: { totalPrice: getTotalPrice(newCartItems) }
+      });
+
       return cartItems;
     },
 
@@ -73,6 +93,11 @@ const resolvers = {
       cache.writeQuery({
         query: GET_CART_COUNT,
         data: { cartCount: getCartCount(newCartItems) }
+      });
+
+      cache.writeQuery({
+        query: GET_CART_TOTAL_PRICE,
+        data: { totalPrice: getTotalPrice(newCartItems) }
       });
 
       return cartItems;

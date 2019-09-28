@@ -18,3 +18,9 @@ export const GET_CART_ITEMS = gql`
     cartItems @client
   }
 `;
+
+export const GET_CART_TOTAL_PRICE = gql`
+  {
+    totalPrice @client
+  }
+`;
