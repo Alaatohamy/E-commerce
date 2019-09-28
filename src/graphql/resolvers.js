@@ -5,16 +5,16 @@ const resolvers = {
   Mutation: {
     /** key will be the name of actual mutation definition */
     toggleCartDropdown: (_root, _args, { cache }) => {
-      const { CartClicked } = cache.readQuery({
+      const { cartClicked } = cache.readQuery({
         query: GET_CART_CLICKED
       });
 
       cache.writeQuery({
         query: GET_CART_CLICKED,
-        data: { CartClicked: !CartClicked }
+        data: { cartClicked: !cartClicked }
       });
 
-      return !CartClicked;
+      return !cartClicked;
     }
   }
 };
