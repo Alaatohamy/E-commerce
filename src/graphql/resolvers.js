@@ -1,5 +1,5 @@
-import { GET_CART_CLICKED, GET_CART_ITEMS } from "./queries";
-import { addItemToCart, decreaseCartItem } from "./cart.utils";
+import { GET_CART_CLICKED, GET_CART_ITEMS, GET_CART_COUNT } from "./queries";
+import { addItemToCart, decreaseCartItem, getCartCount } from "./cart.utils";
 
 /** Its object update the cache/local store by writing the implementation of the mutations or query */
 const resolvers = {
@@ -23,9 +23,16 @@ const resolvers = {
         query: GET_CART_ITEMS
       });
 
+      const newCartItems = addItemToCart(cartItems, item);
+
       cache.writeQuery({
         query: GET_CART_ITEMS,
-        data: { cartItems: addItemToCart(cartItems, item) }
+        data: { cartItems: newCartItems }
+      });
+
+      cache.writeQuery({
+        query: GET_CART_COUNT,
+        data: { cartCount: getCartCount(newCartItems) }
       });
 
       return cartItems;
@@ -36,9 +43,16 @@ const resolvers = {
         query: GET_CART_ITEMS
       });
 
+      const newCartItems = decreaseCartItem(cartItems, item);
+
       cache.writeQuery({
         query: GET_CART_ITEMS,
-        data: { cartItems: decreaseCartItem(cartItems, item) }
+        data: { cartItems: newCartItems }
+      });
+
+      cache.writeQuery({
+        query: GET_CART_COUNT,
+        data: { cartCount: getCartCount(newCartItems) }
       });
 
       return cartItems;
@@ -49,9 +63,16 @@ const resolvers = {
         query: GET_CART_ITEMS
       });
 
+      const newCartItems = cartItems.filter(item => item.id !== id);
+
       cache.writeQuery({
         query: GET_CART_ITEMS,
-        data: { cartItems: cartItems.filter(item => item.id !== id) }
+        data: { cartItems: newCartItems }
+      });
+
+      cache.writeQuery({
+        query: GET_CART_COUNT,
+        data: { cartCount: getCartCount(newCartItems) }
       });
 
       return cartItems;
