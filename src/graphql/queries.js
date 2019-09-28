@@ -6,3 +6,15 @@ export const GET_CART_CLICKED = gql`
     cartClicked @client
   }
 `;
+
+export const GET_CART_COUNT = gql`
+  {
+    cartCount @client
+  }
+`;
+
+export const GET_CART_ITEMS = gql`
+  {
+    cartItems @client
+  }
+`;

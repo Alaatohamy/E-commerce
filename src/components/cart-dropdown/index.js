@@ -1,11 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
-import { Mutation } from "react-apollo";
-import { TOGGLE_CART_DROPDOWN } from "graphql/mutations";
 import { Button, CartItem } from "components";
-import { selectCartItems } from "redux/cart/cart.selectors";
 import "./cart-dropdown.style.scss";
 
 const CartDropdownView = ({ cartItems, history, toggleCartDropdown }) => {
@@ -37,17 +31,4 @@ const CartDropdownView = ({ cartItems, history, toggleCartDropdown }) => {
   );
 };
 
-const mapState = createStructuredSelector({
-  cartItems: selectCartItems
-});
-
-const CartDropdownConnected = withRouter(connect(mapState)(CartDropdownView));
-
-const CartDropdown = () => (
-  <Mutation mutation={TOGGLE_CART_DROPDOWN}>
-    {toggleCartDropdown => (
-      <CartDropdownConnected toggleCartDropdown={toggleCartDropdown} />
-    )}
-  </Mutation>
-);
-export default CartDropdown;
+export default CartDropdownView;

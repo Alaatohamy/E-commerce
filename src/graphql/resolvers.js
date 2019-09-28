@@ -1,4 +1,5 @@
-import { GET_CART_CLICKED } from "./queries";
+import { GET_CART_CLICKED, GET_CART_ITEMS } from "./queries";
+import { addItemToCart, decreaseCartItem } from "./cart.utils";
 
 /** Its object update the cache/local store by writing the implementation of the mutations or query */
 const resolvers = {
@@ -15,6 +16,45 @@ const resolvers = {
       });
 
       return !cartClicked;
+    },
+
+    addCartItem: (_root, { item }, { cache }) => {
+      const { cartItems } = cache.readQuery({
+        query: GET_CART_ITEMS
+      });
+
+      cache.writeQuery({
+        query: GET_CART_ITEMS,
+        data: { cartItems: addItemToCart(cartItems, item) }
+      });
+
+      return cartItems;
+    },
+
+    decreaseCartItem: (_root, { item }, { cache }) => {
+      const { cartItems } = cache.readQuery({
+        query: GET_CART_ITEMS
+      });
+
+      cache.writeQuery({
+        query: GET_CART_ITEMS,
+        data: { cartItems: decreaseCartItem(cartItems, item) }
+      });
+
+      return cartItems;
+    },
+
+    removeCartItem: (_root, { id }, { cache }) => {
+      const { cartItems } = cache.readQuery({
+        query: GET_CART_ITEMS
+      });
+
+      cache.writeQuery({
+        query: GET_CART_ITEMS,
+        data: { cartItems: cartItems.filter(item => item.id !== id) }
+      });
+
+      return cartItems;
     }
   }
 };

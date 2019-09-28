@@ -6,7 +6,8 @@ import { Query } from "react-apollo";
 import { GET_CART_CLICKED } from "graphql/queries";
 import { ReactComponent as Logo } from "assets/logo.svg";
 import { auth } from "firebase-config/firebase.utils";
-import { CartDropdown, CartIcon } from "components";
+import { CartIcon } from "components";
+import CartDropdown from "components/cart-dropdown/cart-dropdown.container";
 import { selectCurrentUser } from "redux/user/user.selectors";
 import "./header.style.scss";
 
