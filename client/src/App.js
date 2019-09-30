@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import "./App.css";
 import { HomePage, ShopPage, SignPage, CheckoutPage } from "pages";
 import { Header } from "components";
 import { selectCurrentUser } from "redux/user/user.selectors";
 import { setCurrentUser } from "redux/user/user.actions";
+import { GlobalStyle } from "global.style";
+import { Container } from "styles/general/grid";
 
 const App = ({ setCurrentUser, currentUser }) => {
   useEffect(() => {
@@ -15,7 +16,8 @@ const App = ({ setCurrentUser, currentUser }) => {
 
   return (
     <div className="App">
-      <div className="container">
+      <GlobalStyle />
+      <Container>
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -27,7 +29,7 @@ const App = ({ setCurrentUser, currentUser }) => {
             render={() => (currentUser ? <Redirect to="/" /> : <SignPage />)}
           />
         </Switch>
-      </div>
+      </Container>
     </div>
   );
 };

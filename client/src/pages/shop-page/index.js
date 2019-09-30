@@ -11,7 +11,7 @@ const ShopPage = ({ fetchShopDataStart, match }) => {
   }, [fetchShopDataStart]);
 
   return (
-    <section className="shop-page">
+    <section>
       <Route
         exact
         path={`${match.path}`}

@@ -1,19 +1,19 @@
 import React from "react";
 import { SignIn, SignUp } from "components";
-import "./sign-page.style.scss";
+import { SignPage, SignFormCol, SignFormColContainer } from "./sign-page.style";
 
 const SignInPage = () => {
   return (
-    <div className="sign-page">
-      <section className="cols cols--2">
-        <div className="col">
+    <SignPage>
+      <SignFormColContainer>
+        <SignFormCol>
           <SignIn />
-        </div>
-        <div className="col">
+        </SignFormCol>
+        <SignFormCol>
           <SignUp />
-        </div>
-      </section>
-    </div>
+        </SignFormCol>
+      </SignFormColContainer>
+    </SignPage>
   );
 };
 

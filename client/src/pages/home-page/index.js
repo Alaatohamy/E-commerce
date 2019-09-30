@@ -3,7 +3,7 @@ import { NavigationList } from "components";
 
 const HomePage = props => {
   return (
-    <section className="home-page">
+    <section>
       <NavigationList />
     </section>
   );

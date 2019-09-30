@@ -5,7 +5,11 @@ import { createStructuredSelector } from "reselect";
 import { Button, CartItem } from "components";
 import { selectCartItems } from "redux/cart/cart.selectors";
 import { toggleCartDropDown } from "redux/cart/cart.actions";
-import "./cart-dropdown.style.scss";
+import {
+  CartDropdownWrapper,
+  NoDataText,
+  CartDropdownContent
+} from "./cart-dropdown.style";
 
 const CartDropdown = props => {
   const { cartItems, history, toggleCartDropDown } = props;
@@ -16,14 +20,14 @@ const CartDropdown = props => {
   };
 
   return (
-    <div className="cart-dropdown-wrapper">
+    <CartDropdownWrapper>
       {cartItems.length ? (
         <>
-          <ul className="cart-dropdown-content">
+          <CartDropdownContent>
             {cartItems.map(item => (
               <CartItem key={item.id} item={item} />
             ))}
-          </ul>
+          </CartDropdownContent>
           <Button
             text="Go to checkout"
             color="black"
@@ -32,9 +36,9 @@ const CartDropdown = props => {
           />
         </>
       ) : (
-        <p className="no-data">Your Cart is Empty</p>
+        <NoDataText>Your Cart is Empty</NoDataText>
       )}
-    </div>
+    </CartDropdownWrapper>
   );
 };
 

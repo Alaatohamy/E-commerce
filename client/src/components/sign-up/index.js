@@ -36,7 +36,7 @@ const SignUp = ({ signUpStart, error }) => {
   };
 
   return (
-    <section className="form">
+    <section>
       <FormTitle>I do not have a account</FormTitle>
       <FormDescription>Sign up with your email and password</FormDescription>
       <FormContainer onSubmit={handleSubmit}>
