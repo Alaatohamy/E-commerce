@@ -1,18 +1,18 @@
 import React from "react";
 import { CheckoutItems, Payment } from "components";
-import "./checkout-page.style.scss";
+import { StyledCheckoutPage, Hint } from "./checkout-page.style";
 
 const CheckoutPage = () => {
   return (
-    <section className="checkout-page">
+    <StyledCheckoutPage>
       <CheckoutItems />
       <Payment />
-      <div className="hint">
+      <Hint>
         *Please use the following test credit card for payments*
         <br />
         4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
-      </div>
-    </section>
+      </Hint>
+    </StyledCheckoutPage>
   );
 };
 

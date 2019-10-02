@@ -4,36 +4,43 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { selectCartItems, selectTotalPrice } from "redux/cart/cart.selectors";
 import { CheckoutItem } from "components";
-import "./checkout-items.style.scss";
+import {
+  CheckoutTable,
+  CheckoutTableHead,
+  CheckoutTh,
+  CheckoutTableFooter,
+  CheckoutNoDataWrapper,
+  CheckoutNoData
+} from "./checkout-items.style";
 
 const CheckoutItems = ({ cartItems, totalPrice }) => {
   return (
     <>
       {cartItems.length ? (
-        <table className="checkout-page-content">
-          <thead>
+        <CheckoutTable>
+          <CheckoutTableHead>
             <tr>
-              <th>Product</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Remove</th>
+              <CheckoutTh>Product</CheckoutTh>
+              <CheckoutTh>Description</CheckoutTh>
+              <CheckoutTh>Quantity</CheckoutTh>
+              <CheckoutTh>Price</CheckoutTh>
+              <CheckoutTh>Remove</CheckoutTh>
             </tr>
-          </thead>
+          </CheckoutTableHead>
           <tbody>
             {cartItems.map(item => (
               <CheckoutItem key={item.id} item={item} />
             ))}
           </tbody>
-          <tfoot>
+          <CheckoutTableFooter>
             <tr>
               <td colSpan="5">Total: ${totalPrice}</td>
             </tr>
-          </tfoot>
-        </table>
+          </CheckoutTableFooter>
+        </CheckoutTable>
       ) : (
-        <div className="no-data-wrapper">
-          <div className="no-data">
+        <CheckoutNoDataWrapper>
+          <CheckoutNoData>
             <p>
               Your Cart is Empty,{" "}
               <Link to="/shop">
@@ -43,8 +50,8 @@ const CheckoutItems = ({ cartItems, totalPrice }) => {
                 </span>
               </Link>
             </p>
-          </div>
-        </div>
+          </CheckoutNoData>
+        </CheckoutNoDataWrapper>
       )}
     </>
   );

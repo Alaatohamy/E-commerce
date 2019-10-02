@@ -8,3 +8,11 @@ export const clearfix = css`
     display: table;
   }
 `;
+
+export const pull_start = css`
+  float: left;
+`;
+
+export const pull_end = css`
+  float: right;
+`;

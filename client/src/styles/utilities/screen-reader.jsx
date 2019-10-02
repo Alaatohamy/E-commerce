@@ -1,4 +1,6 @@
-.visually-hidden {
+import styled from "styled-components";
+
+export const VisuallyHidden = styled.span`
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -7,4 +9,4 @@
   padding: 0;
   position: absolute;
   width: 1px;
-}
+`;

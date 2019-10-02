@@ -8,6 +8,7 @@ import { selectCartClicked } from "redux/cart/cart.selectors";
 import { selectCurrentUser } from "redux/user/user.selectors";
 import { signOut } from "redux/user/user.actions";
 import { MainHeader, Heading1, Navigation, ListItem } from "./header.style";
+import { VisuallyHidden } from "styles/utilities/screen-reader";
 
 class Header extends React.Component {
   render() {
@@ -17,7 +18,7 @@ class Header extends React.Component {
       <MainHeader>
         <Heading1>
           <Link to="/">
-            <span className="visually-hidden">T-Commerce</span>
+            <VisuallyHidden>T-Commerce</VisuallyHidden>
             <Logo title="T-Commerce logo" />
           </Link>
         </Heading1>

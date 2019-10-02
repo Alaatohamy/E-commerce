@@ -1,11 +1,13 @@
-.container {
+import styled, { css } from "styled-components";
+
+export const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding-inline-start: 15px;
   padding-inline-end: 15px;
-}
+`;
 
-.cols {
+export const cols = css`
   margin-inline-start: -15px;
   margin-inline-end: -15px;
 
@@ -15,13 +17,11 @@
     display: table;
     clear: both;
   }
+`;
 
-  &--2 {
-    .col {
-      float: left;
-      width: 50%;
-      padding-inline-start: 30px;
-      padding-inline-end: 30px;
-    }
-  }
-}
+export const col__2 = css`
+  float: left;
+  width: 50%;
+  padding-inline-start: 30px;
+  padding-inline-end: 30px;
+`;
