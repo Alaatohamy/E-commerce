@@ -13,3 +13,4 @@ export { default as CheckoutItem } from "./checkout-item";
 export { default as CollectionSection } from "./collection-section";
 export { default as Payment } from "./payment";
 export { default as WithSpinner } from "./with-spinner";
+export { default as Spinner } from "./spinner";
