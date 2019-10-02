@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { anchor } from "styles/general/anchor";
 
 export const GlobalStyle = createGlobalStyle`
   html {
