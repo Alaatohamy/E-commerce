@@ -14,3 +14,4 @@ export { default as CollectionSection } from "./collection-section";
 export { default as Payment } from "./payment";
 export { default as WithSpinner } from "./with-spinner";
 export { default as Spinner } from "./spinner";
+export { default as ErrorBoundary } from "./error-boundary";
