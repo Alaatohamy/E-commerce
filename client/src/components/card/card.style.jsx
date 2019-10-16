@@ -9,6 +9,9 @@ export const CardItem = styled.li`
   border: 1px solid black;
   margin: 0 7.5px 15px;
   height: ${({ size }) => (size === "large" ? "380px" : "240px")};
+  @media (max-width: 480px) {
+    height: 240px;
+  }
 
   &:first-child {
     margin-right: 7.5px;

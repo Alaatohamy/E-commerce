@@ -21,6 +21,9 @@ export const CollectionCardItem = styled.li`
   &:hover ${CollectionItemBackgroundImgHover} {
     display: flex;
   }
+  @media (max-width: 700px) {
+    width: 50%;
+  }
 `;
 
 export const CollectionCartItemDetails = styled.div`

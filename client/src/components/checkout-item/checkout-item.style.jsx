@@ -24,8 +24,15 @@ export const CheckoutTableData = styled.td`
   max-height: 170px;
   border-bottom: 1px solid darkgray;
   font-size: 20px;
+  @media only screen and (max-width: 600px) {
+    height: unset;
+    min-height: 45px;
+  }
 
   &:last-child {
     text-align: center;
+    @media only screen and (max-width: 600px) {
+      text-align: left;
+    }
   }
 `;
