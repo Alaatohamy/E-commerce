@@ -7,12 +7,16 @@ export const SignPage = styled.div`
 `;
 
 export const SignFormColContainer = styled.section`
-  ${cols}
+  @media (min-width: 900px) {
+    ${cols}
+  }
 `;
 
 export const SignFormCol = styled.div`
   min-width: 380px;
-  ${col__2}
+  @media (min-width: 900px) {
+    ${col__2}
+  }
 
   &:first-child {
     padding-inline-start: 0;

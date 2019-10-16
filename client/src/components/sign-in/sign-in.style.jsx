@@ -6,5 +6,8 @@ export const ActionsContainer = styled.div`
   button + button {
     margin-inline-start: 20px;
     float: right;
+    @media (max-width: 900px) {
+      float: unset;
+    }
   }
 `;
