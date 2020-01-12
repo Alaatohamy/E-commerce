@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { clearfix } from "styles/utilities/floats";
 
-export const CollectionTitle = styled.h1`
+export const CollectionTitle = styled.h3`
   font-weight: bold;
-  font-size: 28px;
+  font-size: 24px;
   margin-bottom: 25px;
 `;
 
