@@ -5,6 +5,7 @@ import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { selectTotalPrice } from "redux/cart/cart.selectors";
 import { clearCart } from "redux/cart/cart.actions";
+import { Hint } from "pages/checkout-page/checkout-page.style";
 
 const Payment = ({ totalPrice, clearCart }) => {
   const stripPrice = totalPrice * 100;
@@ -27,20 +28,27 @@ const Payment = ({ totalPrice, clearCart }) => {
       });
   };
 
-  return (
-    <StripeCheckout
-      label="Pay Now"
-      name="T-Commerce"
-      billingAddress
-      shippingAddress
-      image=""
-      description={`Your Total is $${totalPrice}`}
-      panelLabel="Pay Now"
-      amount={stripPrice}
-      token={onToken}
-      stripeKey={publishablekey}
-    />
-  );
+  return totalPrice ? (
+    <>
+      <StripeCheckout
+        label="Pay Now"
+        name="T-Commerce"
+        billingAddress
+        shippingAddress
+        image=""
+        description={`Your Total is $${totalPrice}`}
+        panelLabel="Pay Now"
+        amount={stripPrice}
+        token={onToken}
+        stripeKey={publishablekey}
+      />
+      <Hint>
+        *Please use the following test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/20 - CVV: 123
+      </Hint>
+    </>
+  ) : null;
 };
 
 const mapState = createStructuredSelector({

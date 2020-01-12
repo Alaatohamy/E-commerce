@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledCheckoutPage = styled.section`
   min-width: 500px;
   width: 55%;
-  min-height: 90vh;
+  height: 90vh;
   margin: auto;
   @media (max-width: 1024px) {
     width: 70%;

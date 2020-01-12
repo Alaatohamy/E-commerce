@@ -115,6 +115,9 @@ export const CheckoutNoData = styled.div`
   display: table-cell;
   text-align: center;
   font-size: 35px;
+  @media (max-width: 500px) {
+    font-size: 30px;
+  }
 
   a {
     color: blue;
