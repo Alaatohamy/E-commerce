@@ -6,8 +6,7 @@ import {
   CollectionContainerUL
 } from "./collection-section.style";
 
-const CollectionSection = ({ collection }) => {
-  const { title, routeName, items } = collection;
+const CollectionSection = ({ collection: { title, routeName, items } }) => {
   return (
     <>
       <CollectionTitle>
