@@ -8,7 +8,7 @@ import { truncateArrayFromObject } from "utils/functions.utils";
 const CollectionPreview = ({ collections }) => {
   return (
     <section>
-      <h1>Collections</h1>
+      <h2>Collections</h2>
       {collections.map(collection => {
         const newCollection = truncateArrayFromObject(
           collection,
